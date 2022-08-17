@@ -143,11 +143,10 @@ pigx登录
     等待元素可用    ${登录按钮}
     sleep    1
     click element    ${登录按钮}
-    ${cookies}    get cookies
-    存储cookie到文件    ${cookies}
     sleep    2
     等待元素可用    ${提示框关闭}
-    click element    ${提示框关闭}
+    ${cookies}    get cookies
+    存储cookie到文件    ${cookies}
     sleep    1
     Go To    ${testurl}
     sleep    2
@@ -167,15 +166,14 @@ pigx登录
     sleep    1
     Go To    ${testurl}
     sleep    1
-    Reload page
 
 表单单元格数据不为0的元素查找
     [Arguments]    ${num1}    ${num2}
     FOR    ${i}    IN RANGE    ${num1}    ${num2}
-        ${ele}    Set Variable    //tbody/tr[1]/td[${i}]/a
-        ${value}    get text    ${ele}
-        log    ${value}
-        Run Keyword If    ${value}!=0    Exit For Loop
+    ${ele}    Set Variable    //tbody/tr[1]/td[${i}]/a
+    ${value}    get text    ${ele}
+    log    ${value}
+    Run Keyword If    ${value}!=0    Exit For Loop
     [Return]    ${ele}
 
 搜索输入中的管理区

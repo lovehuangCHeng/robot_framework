@@ -3,8 +3,13 @@ Resource          人事管理方法.robot
 Resource          ../../通用方法.robot
 
 *** Test Cases ***
-考勤管理新建
+登录获取cookie
     [Setup]    登录保存cookie    ${考勤管理}
+    log    登录成功
+    [Teardown]    关闭浏览器
+
+考勤管理新建
+    [Setup]    登录    ${考勤管理}
     ${testdata}    新建员工变量
     考勤管理新建    ${testdata}
     [Teardown]    关闭浏览器
@@ -33,3 +38,6 @@ Resource          ../../通用方法.robot
     [Setup]    登录    ${考勤管理}
     考勤查看删除    ${testdata}
     [Teardown]    关闭浏览器
+
+数据库删除新建员工数据
+    数据库更新数据    ${delNewstaff}
