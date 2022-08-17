@@ -1,0 +1,124 @@
+*** Settings ***
+Library           Selenium2Library
+Variables         ../../../../config/elements/OA系统/OAXpath.py
+Resource          ../../../通用方法.robot
+
+*** Variables ***
+
+*** Keywords ***
+新建公告类别
+    ${公告类别名称}    Evaluate    random.randint(1000, 9999)    random
+    set suite variable    ${公告类别名称}
+    等待element元素可见    ${新建公告按钮}
+    sleep    0.5
+    Click Button    ${新建公告按钮}    \    #新建公告按钮
+    等待element元素可见    ${公告类别输入框}
+	sleep    0.5
+    Click Element    ${公告类别输入框}    \    \    #公告类别输入框
+    等待element元素可见    ${公告类别添加按钮}
+    Click Element    ${公告类别添加按钮}    \    \    #添加公告类别按钮
+	sleep    0.5
+    Input Text    ${公告名称输入框}    ${公告类别名称}    \    #输入公告类别名称
+	sleep    0.5
+    Click Button    ${公告类别保存按钮}    \    #保存公告类别按钮
+	sleep    0.5
+
+新建公告
+    [Arguments]    ${公告名称}
+    等待element元素可见    ${新建公告按钮}
+    sleep    1
+    Click Button    ${新建公告按钮}
+    等待element元素可见    ${公告类别输入框}
+    sleep    1
+    Click Element    ${公告类别输入框}
+    等待element元素可见    ${选择新建的公告类别}
+    sleep    1
+    Click Element    ${选择新建的公告类别}    \    \    #选择公告类别按钮
+    Click Element    ${公告管理区下拉框}    \    \    #管理区输入框
+    等待element元素可见    ${选择新建的公告类别}
+    sleep    1
+    Click Element    ${公告选择所有管理区}    \    \    #选择所有管理区
+    Click Element    ${勾选后台系统}
+    Input Text    ${公告主题输入}    ${公告名称}
+    Input Text    ${公告内容输入}    ${公告名称}
+    sleep    1
+    Click Button    ${公告保存按钮}
+    sleep    1
+
+搜索公告
+    等待element元素可见    ${公告搜索输入框}
+    sleep    1
+    input text    ${公告搜索输入框}    公告UITE
+    sleep    1
+    Click Element    ${公告搜索按钮}
+    sleep    1
+
+删除公告
+    等待element元素可见    ${公告删除按钮}
+    sleep    1
+    Click Element    ${公告删除按钮}
+    sleep    1
+    Click button    ${公告确认删除按钮}
+	sleep    0.5
+发布公告
+    等待element元素可见    ${公告发布按钮}
+    sleep    1
+    Click Element    ${公告发布按钮}
+	sleep    0.5
+	
+新建并发布公告
+    [Arguments]    ${公告名称1}
+    等待element元素可见    ${新建公告按钮}
+    sleep    1
+    Click Button    ${新建公告按钮}
+    等待element元素可见    ${公告类别输入框}
+    sleep    1
+    Click Element    ${公告类别输入框}
+    等待element元素可见    ${选择新建的公告类别}
+    sleep    1
+    Click Element    ${选择新建的公告类别}
+	sleep    1
+    Click Element    ${公告管理区下拉框}
+	sleep    1
+    Click Element    ${公告选择所有管理区}
+	sleep    1
+    Click Element    ${勾选后台系统}
+    Input Text    ${公告主题输入}    ${公告名称1}
+    Input Text    ${公告内容输入}    ${公告名称1}
+    等待button元素可见    ${公告保存并发布按钮}
+    sleep    1
+    Click Button    ${公告保存并发布按钮}
+    sleep    1
+
+切换我收到的公告
+    等待element元素可见    ${我收到的公告标签}
+    sleep    1
+    Click Element    ${我收到的公告标签}
+
+查看我收到的公告
+    sleep    1
+    Click Element    ${我收到的公告标签}
+    sleep    1
+    Click Element    ${我收到的公告标题}
+    sleep    1
+    Click Button    ${公告查看取消按钮1}
+	sleep    1
+
+删除我收到的公告
+    sleep    1
+    Click Element    ${收到公告删除按钮}
+    sleep    1
+    Click Button    ${公告确认删除按钮}
+	sleep    1
+
+批量删除公告
+    Sleep    1
+    Click Element    ${公告复选框}
+    sleep    1
+    Click Button    ${公告批量删除按钮}
+	sleep    1
+    Click Button    ${公告确认删除按钮}
+	sleep    1
+
+查询administrator
+    数据库查询操作

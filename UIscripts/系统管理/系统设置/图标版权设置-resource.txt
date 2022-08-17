@@ -1,0 +1,15 @@
+*** Settings ***
+Library           Selenium2Library
+Resource          ../../通用方法.robot
+Resource          图标版权设置-resource.txt
+Variables         ../../../config/geturl.py
+Variables         ../../../config/elements/系统管理/系统管理Xpath.py
+
+*** Keywords ***
+图标版权设置
+    等待element元素可见    ${网站名输入框}
+    Input Text    ${网站名输入框}    诺怀云物管系统api
+    sleep    1
+    Input Text    ${公司名输入框}    重庆诺怀软件有限公司api
+    sleep    1
+    Click Button    ${图标版权保存按钮}

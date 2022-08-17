@@ -1,0 +1,30 @@
+*** Settings ***
+Variables         ../../../../config/elements/收费管理/催费Xpath.py
+Library           Selenium2Library    timeout=20
+Resource          ../../../通用方法.robot
+
+*** Keywords ***
+打印、导出催费通知单
+    click element    ${管理区下拉}
+    等待element元素可见    //select[@id='Filter_RegionId']/option[@value='${CCregionID}']
+    sleep    3
+    click element    //select[@id='Filter_RegionId']/option[@value='${CCregionID}']
+    sleep    3
+    click element    ${日期选择按钮}
+    sleep    3
+    click element    ${选择本月}
+    sleep    3
+    click button    ${搜索欠费账单}
+    等待element元素可见    ${数据存在断言}
+    sleep    3
+    click button    ${PDF导出}
+    sleep    3
+    click button    ${开始打印}
+    等待element元素可见    ${断言加载打印}
+    sleep    3
+
+数据查询
+    数据库查询操作    ${GetCurentShouldChargBill}
+    ${CCregionID}    set variable    ${var[0][0] }
+    Set Suite Variable    ${CCregionID}
+    log    ${CCregionID}

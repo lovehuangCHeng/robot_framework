@@ -1,0 +1,7 @@
+*** Settings ***
+Variables         ../../../../config/elements/收费管理/抄表Xpath.py
+Library           Selenium2Library
+Resource          ../../../通用方法.robot
+
+*** Keywords ***
+

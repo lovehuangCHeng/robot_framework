@@ -1,0 +1,48 @@
+*** Settings ***
+Variables         ../../../../config/elements/OA系统/OAXpath.py
+Library           Selenium2Library
+Resource          ../../../通用方法.robot
+
+*** Keywords ***
+新建文档类别
+    ${wd1}    Evaluate    random.randint(1000, 9999)    random
+    ${文档类别}    Catenate    ${wd1}    文档累呗UITE
+    Click Button    ${新建文档类别按钮}
+    sleep    1
+    Input Text    ${文档类别名称}    ${文档类别}    文档类别
+    Input Text    ${文档类别备注}    ${文档类别}    文档类别内容
+    sleep    1
+    Click Button    ${文档类别保存按钮}
+    sleep    1
+    Click Button    ${新建文档类别按钮}
+    sleep    1
+    Click Button    ${文档类别取消按钮}
+    sleep    1
+
+编辑文档类别
+    input text    ${文档类别搜索框}    UITE
+    Sleep    1
+    搜索框内置搜索按钮
+    Sleep    1
+    Click Element    ${文档类别复选框}
+    Sleep    1
+    Click Button    ${编辑文档类别按钮}
+    Sleep    1
+    Input Text    ${文档类别备注}    UITE编辑文档类别
+    sleep    1
+    Click Button    ${文档类别保存按钮}
+    sleep    1
+    Click Button    ${编辑文档类别按钮}
+    sleep    1
+    Click Button    ${文档类别取消按钮}
+
+删除文档类别
+    input text    ${文档类别搜索框}    UITE
+    Sleep    1
+    搜索框内置搜索按钮
+    Sleep    1
+    Click Element    ${文档类别复选框}
+    Sleep    1
+    Click Button    ${删除文档类别按钮}
+    Sleep    2
+    二次确认

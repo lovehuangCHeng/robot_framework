@@ -1,0 +1,48 @@
+*** Settings ***
+Variables         ../../../../config/elements/OA系统/OAXpath.py
+Library           Selenium2Library
+Resource          ../../../通用方法.robot
+
+*** Keywords ***
+新建计划类别
+    ${jh1}    Evaluate    random.randint(1000, 9999)    random
+    ${计划类别}    Catenate    ${jh1}    文档累呗UITE
+    Click Button    ${新建计划类别按钮}
+    sleep    1
+    Input Text    ${计划类别名称}    ${计划类别}    计划类别
+    Input Text    ${计划类别备注}    ${计划类别}    计划类别内容
+    sleep    1
+    Click Button    ${计划类别保存按钮}
+    sleep    1
+    Click Button    ${新建计划类别按钮}
+    sleep    1
+    Click Button    ${计划类别取消按钮}
+    sleep    1
+
+编辑计划类别
+    input text    ${计划类别搜索框}    UITE
+    Sleep    1
+    搜索框内置搜索按钮
+    Sleep    1
+    Click Element    ${计划类别复选框}
+    Sleep    1
+    Click Button    ${编辑计划类别按钮}
+    Sleep    1
+    Input Text    ${计划类别备注}    UITE编辑计划类别
+    sleep    1
+    Click Button    ${计划类别保存按钮}
+    sleep    1
+    Click Button    ${编辑计划类别按钮}
+    sleep    1
+    Click Button    ${计划类别取消按钮}
+
+删除计划类别
+    input text    ${文档类别搜索框}    UITE
+    Sleep    1
+    搜索框内置搜索按钮
+    Sleep    1
+    Click Element    ${文档类别复选框}
+    Sleep    1
+    Click Button    ${删除文档类别按钮}
+    Sleep    2
+    二次确认

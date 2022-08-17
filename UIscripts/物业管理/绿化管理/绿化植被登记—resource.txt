@@ -1,0 +1,57 @@
+*** Settings ***
+Resource          ../../通用方法.robot
+Variables         ../../../config/elements/物业管理/绿化管理Xpath.py
+Library           Selenium2Library
+
+*** Keywords ***
+新建绿化植被
+    ${quyuID}    Get Current Date    result_format=%Y%d%M%S
+    click button    ${绿化植被新建按钮}
+    等待element元素可见    ${绿化植被选择管理区下拉}
+    sleep    1
+    click element    ${绿化植被选择管理区下拉}
+    等待element元素可见    ${绿化植被选择第一个管理区}
+    sleep    1
+    click element    ${绿化植被选择第一个管理区}
+    sleep    1
+    input text    ${绿化植被名称输入框}    ${quyuID}
+    sleep    1
+    input text    ${绿化植被数量输入框}    ${quyuID}
+    sleep    1
+    click element    ${绿化植被区域下拉}
+    等待element元素可见    ${绿化植被第一个区域}
+    sleep    1
+    click element    ${选择第一个责任人}
+    sleep    1
+    input text    ${绿化养护要求}    ${quyuID}
+    sleep    1
+    click button    ${确认按钮}
+    等待element元素可见    ${操作成功断言}
+    sleep    1
+    click element    ${查看按钮}
+    sleep    1
+    click button    ${取消按钮}
+    sleep    1
+
+编辑绿化植被
+    等待element元素可见    ${编辑按钮}
+    sleep    1
+    click element    ${编辑按钮}
+    等待element元素可见    ${确认按钮}
+    sleep    1
+    click button    ${确认按钮}
+    等待element元素可见    ${操作成功断言}
+
+删除绿化植被
+    ${quyuID}    Get Current Date    result_format=%Y%d
+    等待element元素可见    ${删除按钮}
+    input text    ${搜索框}    ${quyuID}
+    sleep    1
+    click element    ${搜索}
+    sleep    1
+    等待element元素可见    ${删除按钮}
+    click element    ${删除按钮}
+    等待element元素可见    ${二次确认}
+    sleep    1
+    click button    ${二次确认}
+    等待element元素可见    ${操作成功断言}

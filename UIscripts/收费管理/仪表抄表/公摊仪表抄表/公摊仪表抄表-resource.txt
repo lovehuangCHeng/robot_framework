@@ -1,0 +1,136 @@
+*** Settings ***
+Variables         ../../../../config/elements/收费管理/抄表Xpath.py
+Variables         ../../../../config/elements/基础信息/仪表管理.py
+Library           Selenium2Library
+Resource          ../../../通用方法.robot
+
+*** Keywords ***
+公摊进度概况
+    等待element元素可见    ${选择仪表种类下拉框}
+    sleep    2
+    Click Element    ${选择仪表种类下拉框}
+    sleep    2
+    Click Element    ${选择仪表种类}
+    sleep    2
+    Click Element    ${管理区下拉}
+    sleep    2
+    Click Element    ${选择管理区}
+    sleep    2
+    Click Button    ${批量录入按钮}
+    等待element元素可见    ${批量录入取消}
+    sleep    3
+    Click Element    ${批量录入取消}
+
+公摊抄表进度明细
+    等待element元素可见    ${公摊抄表进度明细 }
+    sleep    3
+    Click Element    ${公摊抄表进度明细 }
+    sleep    3
+    mouse up    ${导入抄表数据}
+    等待element元素可见    ${导入数据}
+    sleep    3
+    Click Element    ${导入数据}
+    sleep    3
+    等待element元素可见    ${取消导入}
+    Click Button    ${取消导入}
+    sleep    3
+    Click Element    ${批量录入按钮}
+    sleep    1
+    等待element元素可见    ${公摊输入用量}
+    input text    ${公摊输入用量}    9999
+    sleep    2
+    Click Element    ${本次抄表日期选择器}
+    等待element元素可见    ${选择本次抄表日期}
+    sleep    2
+    Click Element    ${选择本次抄表日期}
+    sleep    2
+    Click Button    ${抄表保存按钮}
+    等待element元素可见    ${录入成功确定}
+    sleep    2
+    Click Element    ${录入成功确定}
+    等待element元素可见    ${录入返回按钮}
+    sleep    2
+    Click Element    ${录入返回按钮}
+
+公摊历史记录
+    等待element元素可见    ${公摊历史记录}
+    sleep    3
+    Click Element    ${公摊历史记录}
+    sleep    3
+    等待element元素可见    ${选择未分摊抄表历史}
+    sleep    3
+    Click Element    ${选择未分摊抄表历史}
+    sleep    3
+    Click Button    ${删除抄表数据}
+    等待element元素可见    ${删除抄表二次确认}
+    sleep    3
+    Click Element    ${删除抄表二次确认}
+
+公摊明细以及抄表
+    登录    ${公摊仪表抄表}
+    进入iframe
+    公摊抄表进度明细
+    sleep    1
+    [Teardown]    关闭浏览器
+
+公摊分摊进度明细
+    等待element元素可见    ${分摊进度明细 }
+    sleep    2
+    Click Element    ${分摊进度明细 }
+    等待element元素可见    ${切换未分摊标签}
+    sleep    2
+    Click Element    ${切换未分摊标签}
+    sleep    2
+    Click Element    ${仪表种类输入框删除}
+    sleep    1
+    Click Element    ${仪表种类输入框删除}
+
+查看分摊结果数据
+    等待element元素可见    ${分摊结果}
+    sleep    2
+    Click Element    ${分摊结果}
+    sleep    2
+    Click Element    ${进度概况管理区下拉}
+    等待element元素可见    ${进度概况选择管理区}
+    sleep    2
+    Click Element    ${进度概况选择管理区}
+    sleep    2
+    Click Element    ${分摊结果搜索}
+    sleep    3
+    Click Button    ${导出抄表数据}
+    sleep    2
+
+新建公摊仪表
+    ${gtyb}    Evaluate    random.randint(0, 999)    random
+    ${gtybNAME}    Catenate    SEPARATOR=    ${gtyb}    UITE公摊表
+    等待element元素可见    ${仪表新建}
+    sleep    2
+    Click Element    ${仪表新建}
+    等待element元素可见    ${公摊仪表名称}
+    sleep    2
+    Input Text    ${公摊仪表名称}    ${gtybNAME}
+    sleep    2
+    Click Element    ${选择管理区}
+    等待element元素可见    ${选择管理区数据}
+    sleep    2
+    Click Element    ${选择管理区数据}
+    等待element元素可见    ${公摊仪表类型公摊表}
+    sleep    2
+    Click Element    ${公摊仪表类型公摊表}
+    等待element元素可见    ${公摊仪表种类}
+    sleep    2
+    Click Element    ${公摊仪表种类}
+    等待element元素可见    ${仪表种类数据}
+    sleep    2
+    Click Element    ${仪表种类数据}
+    sleep    3
+    Click Element    ${公摊仪表抄表日期按钮 }
+    等待element元素可见    ${选择上一个月公摊表抄表 }
+    sleep    3
+    Click Element    ${选择上一个月公摊表抄表 }
+    等待element元素可见    ${选择抄表日期 }
+    sleep    3
+    Click Element    ${选择抄表日期 }
+    sleep    3
+    Click Element    ${房间仪表保存}
+    sleep    2

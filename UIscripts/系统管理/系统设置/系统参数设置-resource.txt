@@ -1,0 +1,16 @@
+*** Settings ***
+Library           Selenium2Library
+Variables         ../../../config/elements/系统管理/系统管理Xpath.py
+
+*** Keywords ***
+系统参数设置
+    Click Element    ${取舍方法}
+    sleep    2
+    Click Element    ${生成零元账单}
+    sleep    1
+    Click Element    ${按应收日期依次收费账单}
+    sleep    1
+    Click Element    ${应收款统计包含冻结账单}
+    sleep    1
+    Click Button    ${系统参数设置保存按钮}
+    sleep    1

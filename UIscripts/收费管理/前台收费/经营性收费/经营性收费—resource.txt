@@ -1,0 +1,93 @@
+*** Settings ***
+Variables         ../../../../config/elements/收费管理/经营Xpath.py
+Library           Selenium2Library    timeout=20
+Resource          ../../../通用方法.robot
+
+*** Keywords ***
+经营性收费
+    sleep    2
+    click element    ${客户搜索栏}
+    等待element元素可见    ${客户搜索栏输入框}
+    sleep    2
+    input text    ${客户搜索栏输入框}    ${KHname}
+    等待element元素可见    ${下拉选择客户}
+    sleep    2
+    click element    ${下拉选择客户}
+    sleep    2
+    click button    ${添加临时费用}
+    等待element元素可见    ${标准搜索栏}
+    sleep    2
+    click element    ${标准搜索栏}
+    等待element元素可见    ${标准搜索栏输入框}
+    sleep    2
+    input text    ${标准搜索栏输入框}    ${GDname}
+    等待element元素可见    ${下拉选择收费标准}
+    sleep    2
+    click element    ${下拉选择收费标准}
+    sleep    2
+    click button    ${选择开始时间按钮}
+    sleep    2
+    click element    ${选择开始时间}
+    sleep    2
+    click button    ${选择结束时间按钮}
+    sleep    2
+    click element    ${选择结束时间}
+    sleep    2
+    click button    ${确认添加}
+    等待element元素可见    ${添加成功断言}
+    sleep    2
+    click button    ${确认添加成功}
+    等待element元素可见    ${选择付款方式}
+    sleep    2
+    click element    ${选择付款方式}
+    等待element元素可见    ${付款方式现金}
+    sleep    2
+    click element    ${付款方式现金}
+    sleep    2
+    click button    ${确认收款}
+    sleep    2
+    等待button元素可见    ${确认但不打印}
+    sleep    2
+    click button    ${确认但不打印}
+    sleep    2
+    等待element元素可见    ${收费成功断言}
+    sleep    2
+    click button    ${确认收费成功}
+
+新增客户
+	[Arguments]    ${testdata}
+    sleep    2
+    click button    ${添加客户按钮}
+    等待element元素可见    ${管理区下拉框}
+    sleep    2
+    click element    ${管理区下拉框}
+    sleep    2
+    click element    ${下拉框选择管理区}
+    sleep    2
+    click element    ${客户类型下拉框}
+    sleep    2
+    click element    ${下拉选择客户类型}
+    sleep    2
+    input text    ${客户名称输入框}    ${testdata}
+    sleep    2
+    click button    ${确认添加客户}
+    等待element元素可见    ${创建客户成功断言}
+    sleep    2
+    click button    ${确认客户创建成功}
+
+数据查询
+    数据库查询操作    ${Cal4ChargeName}
+    ${KHname}    set variable    ${var[0][2] }
+    ${GDname}    set variable    ${var[0][1] }
+    Set Suite Variable    ${KHname}
+    Set Suite Variable    ${GDname}
+    log    ${KHname}
+    log    ${GDname}
+	
+更新固定金额数据
+	数据库更新数据	${UpdateGudJinE}
+	
+客户变量
+    ${testdata}    Time Random    客户
+    Set Suite Variable    ${testdata}
+    [Return]    ${testdata}

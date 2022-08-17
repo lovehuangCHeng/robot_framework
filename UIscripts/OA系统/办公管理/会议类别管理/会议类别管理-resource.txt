@@ -1,0 +1,48 @@
+*** Settings ***
+Variables         ../../../../config/elements/OA系统/OAXpath.py
+Library           Selenium2Library
+Resource          ../../../通用方法.robot
+
+*** Keywords ***
+新建会议类别
+    ${hy1}    Evaluate    random.randint(1000, 9999)    random
+    ${会议类别}    Catenate    ${hy1}    会议类别
+	等待元素可用    ${新建会议类别按钮}
+    Click Button    ${新建会议类别按钮}
+    sleep    1
+    Input Text    ${会议类别名称}    ${会议类别}    会议类别
+    Input Text    ${会议类别备注}    ${会议类别}    会议类别内容
+    sleep    1
+    Click Button    ${会议类别保存按钮}
+    sleep    1
+
+编辑会议类别
+	等待元素可用    ${会议类别复选框}
+    input text    ${会议类别搜索框}    会议类别
+    Sleep    1
+    搜索框内置搜索按钮
+    Sleep    1
+    Click Element    ${会议类别复选框}
+    Sleep    1
+    Click Button    ${编辑会议类别按钮}
+    Sleep    1
+    Input Text    ${会议类别备注}    UITE编辑会议类别
+    sleep    1
+    Click Button    ${会议类别保存按钮}
+    sleep    1
+    Click Button    ${编辑会议类别按钮}
+    sleep    1
+    Click Button    ${会议类别取消按钮}
+
+删除会议类别
+	等待元素可用    ${会议类别复选框}
+    input text    ${会议类别搜索框}    会议类别
+    Sleep    1
+    搜索框内置搜索按钮
+    Sleep    1
+    Click Element    ${会议类别复选框}
+    Sleep    1
+    Click Button    ${删除会议类别按钮}
+    Sleep    1
+    二次确认
+	Sleep    1

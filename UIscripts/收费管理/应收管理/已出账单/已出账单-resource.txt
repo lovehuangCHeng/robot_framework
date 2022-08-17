@@ -1,0 +1,219 @@
+*** Settings ***
+Variables         ../../../../config/elements/收费管理/应收Xpath.py
+Library           Selenium2Library    timeout=20
+Resource          ../../../通用方法.robot
+Library           string
+
+*** Keywords ***
+高级搜索（已出）
+    [Arguments]    ${SD}    ${CD}    ${NAME}
+    等待element元素可见    ${高级搜索下拉框}
+    sleep    1
+    Click Element    ${高级搜索下拉框}
+    sleep    2
+    input text    ${应收日期}    ${SD}
+    sleep    2
+    click button    ${应收日期确定按钮}
+    sleep    1
+    input text    ${房间代码 }    ${CD}
+    sleep    1
+    Click Element    ${账单状态 }
+    sleep    1
+    input text    ${客户输入}    ${NAME}
+    sleep    1
+    click element    ${选择已出账单}
+    sleep    1
+    click button    ${单击搜索操作}
+
+导出excel
+    等待element元素可见    ${导出}
+    sleep    1
+    Mouse Up    ${导出}
+    sleep    1
+    Click Element    ${导出excel}
+    sleep    1
+
+导出明细excel
+    等待element元素可见    ${导出}
+    sleep    1
+    Mouse Up    ${导出}
+    sleep    1
+    Click Element    ${导出明细excel}
+    sleep    1
+
+删除没有收费的账单
+    等待element元素可见    ${搜索结果}
+    sleep    1
+    Click Element    ${勾选外层账单}
+    sleep    1
+    Click Element    ${删除账单}
+    sleep    2
+    Click element    ${已出二次确认}
+    等待element元素可见    ${关闭撤销删除页面}
+    sleep    1
+    Click Element    ${关闭撤销删除页面}
+
+删除账单并撤销收费(回收票据)
+    等待element元素可见    ${搜索结果}
+    sleep    1
+    Click Element    ${勾选外层账单}
+    sleep    1
+    Click Element    ${删除账单}
+    sleep    2
+    Click element    ${已出二次确认}
+    sleep    2
+    Click Element    ${选择回收票据}
+    sleep    2
+    Click Element    ${勾选账单}
+    sleep    1
+    Click Element    ${撤销并删除账单}
+    等待button元素可见    ${确认撤销账单}
+    sleep    2
+    Click Element    ${确认撤销账单}
+
+删除账单并撤销收费(不回收票据)
+    等待element元素可见    ${搜索结果}
+    sleep    1
+    Click Element    ${勾选外层账单}
+    sleep    1
+    Click Element    ${删除账单}
+    sleep    1
+    Click element    ${已出二次确认}
+    sleep    2
+    Click Element    ${勾选账单}
+    sleep    2
+    Click Element    ${撤销并删除账单}
+    等待button元素可见    ${确认撤销账单}
+    sleep    1
+    Click Element    ${确认撤销账单}
+
+删除已扎帐的账单
+    等待element元素可见    ${搜索结果}
+    sleep    1
+    Click Element    ${勾选外层账单}
+    sleep    1
+    Click Element    ${删除账单}
+    sleep    2
+    Click element    ${已出二次确认}
+    sleep    2
+    Click Element    ${关闭撤销删除页面}
+
+冻结账单
+    等待element元素可见    ${高级搜索下拉框}
+    sleep    1
+    Click Element    ${高级搜索下拉框}
+    sleep    2
+    Click Element    ${账单状态 }
+    sleep    2
+    等待element元素可见    ${选择已出账单 }
+	sleep    1
+    click element    ${选择已出账单 }
+    sleep    1
+    click button    ${单击搜索操作}
+    sleep    2
+    Click Element    ${勾选外层账单}
+    sleep    2
+	Mouse Up    ${冻结账单下拉}
+    sleep    1
+    Click Element    ${冻结账单}
+    sleep    2
+    Click element    ${已出二次确认}
+	sleep    1
+	
+解冻账单
+	等待element元素可见    ${高级搜索下拉框}
+    sleep    1
+    Click Element    ${高级搜索下拉框}
+    sleep    2
+    Click Element    ${账单状态 }
+    sleep    2
+    等待element元素可见    ${选择冻结账单 }
+	sleep    1
+    click element    ${选择冻结账单 }
+    sleep    1
+    click button    ${单击搜索操作}
+    sleep    2
+    Click Element    ${勾选外层账单}
+    sleep    2
+	等待element元素可见    ${冻结账单下拉}
+    sleep    1
+    Mouse Up    ${冻结账单下拉}
+    sleep    1
+    Click Element    ${解冻账单}
+    sleep    2
+    Click element    ${已出二次确认}
+	sleep    1
+	
+标记开票
+	等待element元素可见    ${高级搜索下拉框}
+    sleep    1
+    Click Element    ${勾选外层账单}
+    sleep    1
+	等待element元素可见    ${标记为开票}
+    sleep    1
+    Click Element    ${标记为开票}
+    sleep    2
+    Click element    ${已出二次确认}
+	sleep    1
+	Click element    ${div确定按钮}
+	sleep    1
+	Click Element    ${勾选外层账单}
+    sleep    1
+	等待element元素可见    ${标记为未开票}
+    sleep    1
+    Click Element    ${标记为未开票}
+    sleep    2
+    Click element    ${已出二次确认}
+	sleep    1
+	Click element    ${div确定按钮}
+	sleep    1
+
+查询获取未缴费已出账单
+    ${NBCode}    Set Variable    ${var[0][0]}
+    ${NBSDay}    Set Variable    ${var[0][1]}
+    ${NBSName}    Set Variable    ${var[0][2]}
+    set suite variable    ${NBCode}
+    set suite variable    ${NBSDay}
+    set suite variable    ${NBSName}
+    LOG    ${NBCode}
+    LOG    ${NBSDay}
+    LOG    ${NBSName}
+    sleep    1
+    高级搜索（已出）    '${NBSday}'    ${NBCode}    ${NBSName}
+
+查询获取部分缴费且打印已出账单
+    ${NBCode1}    Set Variable    ${var[0][0]}
+    ${NBSDay1}    Set Variable    ${var[0][1]}
+    ${NBSName1}    Set Variable    ${var[0][2]}
+    set suite variable    ${NBCode1}
+    set suite variable    ${NBSDay1}
+    set suite variable    ${NBSName1}
+    LOG    ${NBCode1}
+    LOG    ${NBSDay1}
+    LOG    ${NBSName1}
+    sleep    1
+    高级搜索（已出）    '${NBSday1}'    ${NBCode1}    ${NBSName1}
+
+查询获取缴费且未打印票据
+    ${NBCode2}    Set Variable    ${var[0][0]}
+    ${NBSDay2}    Set Variable    ${var[0][1]}
+    ${NBSName2}    Set Variable    ${var[0][2]}
+    set suite variable    ${NBCode2}
+    set suite variable    ${NBSDay2}
+    set suite variable    ${NBSName2}
+    LOG    ${NBCode2}
+    LOG    ${NBSDay2}
+    LOG    ${NBSName2}
+    高级搜索（已出）    '${NBSday2}'    ${NBCode2}    ${NBSName2}
+
+部分缴费且未打印票据且(已扎帐)
+    ${NBCode3}    Set Variable    ${var[0][0]}
+    ${NBSDay3}    Set Variable    ${var[0][1]}
+    ${NBSName3}    Set Variable    ${var[0][2]}
+    set suite variable    ${NBCode3}
+    set suite variable    ${NBSDay3}
+    set suite variable    ${NBSName3}
+    LOG    ${NBCode3}
+    LOG    ${NBSDay3}
+    LOG    ${NBSName3}
+    高级搜索（已出）    '${NBSday3}'    ${NBCode3}    ${NBSName3}

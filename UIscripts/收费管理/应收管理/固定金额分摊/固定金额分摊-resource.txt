@@ -1,0 +1,82 @@
+*** Settings ***
+Variables         ../../../../config/elements/收费管理/应收Xpath.py
+Library           Selenium2Library    timeout=20
+Resource          ../../../通用方法.robot
+Library           string
+
+*** Keywords ***
+新建分摊
+    等待element元素可见    ${新建固定金额 }
+    sleep    2
+    Click Button    ${新建固定金额 }
+    sleep    2
+    click element    ${选择管理区下拉框 }
+    sleep    2
+    等待element元素可见    //select[@id='RegionId']/option[@value=${regionid}]
+    click element    //select[@id='RegionId']/option[@value=${regionid}]
+    sleep    2
+    click element    ${选择费用名称 }
+    sleep    3
+    click element    ${选择收费标准 }
+    sleep    3
+    Input Text    ${总金额输入 }    500
+    sleep    3
+    click element    ${开始时间选择器 }
+    等待element元素可见    ${选择开始日期 }
+    sleep    2
+    sleep    3
+    click element    ${选择开始日期 }
+    sleep    3
+    click element    ${结束时间选择器 }
+    等待element元素可见    ${选择结束时间 }
+    sleep    2
+    click element    ${选择结束时间 }
+    sleep    3
+    click element    ${分摊方式下拉框 }
+    等待element元素可见    ${按户分摊 }
+    sleep    2
+    click element    ${按户分摊 }
+    sleep    2
+    click element    ${指定楼宇所有房间 }
+    等待element元素可见    ${选择楼宇下拉框 }
+    sleep    2
+    click element    ${选择楼宇下拉框 }
+    等待element元素可见    ${楼宇搜索输入狂 }
+    sleep    2
+    input text    ${楼宇搜索输入狂 }    ${buildname}
+    等待element元素可见    ${选择楼宇 }
+    sleep    2
+    click element    ${选择楼宇 }
+    sleep    2
+    click element    ${保存分摊 }
+    sleep    2
+    关闭浏览器
+
+编辑分摊
+    click element    ${编辑固定金额分摊 }
+    sleep    3
+    click element    ${取消按钮 }
+    sleep    2
+
+删除分摊
+    click element    ${删除固定金额分摊 }
+    sleep    3
+    click element    ${二次确认 }
+    sleep    2
+
+分摊金额
+    click element    ${分摊按钮 }
+    sleep    2
+
+查看分摊结果
+    click element    ${查看分摊结果}
+    sleep    4
+
+数据查询
+    数据库查询操作    ${BillBNameOid }
+    ${buildname}    set variable    ${var[0][0] }
+    Set Suite Variable    ${buildname}
+    ${regionid}    set variable    ${var[0][1] }
+    Set Suite Variable    ${regionid}
+    log    ${buildname}
+    log    ${regionid}

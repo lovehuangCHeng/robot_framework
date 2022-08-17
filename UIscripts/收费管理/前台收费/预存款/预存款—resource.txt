@@ -1,0 +1,152 @@
+*** Settings ***
+Variables         ../../../../config/elements/收费管理/预存Xpath.py
+Library           Selenium2Library    timeout=20
+Resource          ../../../通用方法.robot
+
+*** Keywords ***
+预缴
+    click button    ${预缴按钮}
+    等待element元素可见    ${搜索栏}
+    sleep    1.5
+    click element    ${搜索栏}
+    等待element元素可见    ${搜索栏输入框}
+    sleep    1.5
+    input text    ${搜索栏输入框}    ${YCKKH}
+    等待element元素可见    ${下拉选择客户}
+    sleep    1.5
+    click element    ${下拉选择客户}
+    sleep    1.5
+    等待element元素可见    ${预缴_房间下拉框}
+    sleep    1
+    click element    ${预缴_房间下拉框}
+    sleep    1.5
+    click element    //ul/li[text()='${YCKCode}']
+    sleep    1.5
+    input text    ${预存款输入框}    10
+    sleep    1.5
+    click element    ${选择预存款账户}
+    等待element元素可见    ${选择通用账户}
+    sleep    1.5
+    click element    ${选择通用账户}
+    sleep    1.5
+    click element    ${选择付款方式}
+    等待element元素可见    ${付款方式现金}
+    sleep    1.5
+    click element    ${付款方式现金}
+    sleep    1.5
+    click button    ${确认收款}
+    sleep    1.5
+    等待button元素可见    ${确认但不打印}
+    sleep    1.5
+    click button    ${确认但不打印}
+    sleep    1.5
+    等待element元素可见    ${充值成功断言}
+    sleep    1.5
+    click button    ${确定充值成功}
+    sleep    1
+
+预存款冲抵
+    预存款搜索
+    sleep    1
+    click button    ${冲抵欠费按钮}
+    sleep    1.5
+    等待element元素可见    ${选择账户账单}
+    sleep    1
+    click element    ${选择账户账单}
+    sleep    1.5
+    等待button元素可见    ${确认冲抵收费}
+    sleep    1
+    click button    ${确认冲抵收费}
+    sleep    1.5
+    等待button元素可见    ${确认但不打印}
+    sleep    1
+    click button    ${确认但不打印}
+    sleep    1
+    等待element元素可见    ${收费成功断言}
+    sleep    1
+    click button    ${确定充值成功}
+    sleep    1
+
+查看收支明细
+    预存款搜索
+    sleep    1
+    click button    ${查看收支明细}
+    sleep    1.5
+    等待element元素可见    ${选择支出}
+    sleep    1.5
+    click element    ${选择支出}
+    sleep    1.5
+    click button    ${查看支出明细}
+    sleep    1.5
+    等待button元素可见    ${关闭支出明细}
+    sleep    1.5
+    click button    ${关闭支出明细}
+    sleep    1.5
+    等待element元素可见    ${欠费冲抵返回}
+    sleep    1.5
+    click element    ${欠费冲抵返回}
+    sleep    1
+
+查看核销明细
+    预存款搜索
+    sleep    1
+    click button    ${查看核销明细}
+    等待element元素可见    ${出现核销账单}
+    sleep    1.5
+    click element    ${勾选核销账单}
+    sleep    1.5
+    click button    ${批量打印票据}
+    sleep    1.5
+    等待button元素可见    ${确定并开始打印}
+    sleep    1.5
+    click button    ${确定并开始打印}
+    sleep    1
+
+预存款退款
+    预存款搜索
+    sleep    1
+    click button    ${预存款退款}
+    sleep    1.5
+    等待element元素可见    ${退款金额输入框}
+    sleep    1.5
+    input text    ${退款金额输入框}    0.01
+    sleep    1.5
+    input text    ${退款原因}    UITE
+    sleep    1.5
+    click button    ${退款保存}
+    sleep    1.5
+    等待button元素可见    ${确认但不打印}
+    sleep    1.5
+    click button    ${确认但不打印}
+    sleep    1.5
+    等待element元素可见    ${退款成功断言}
+    sleep    1.5
+    click button    ${确定退款}
+    sleep    1.5
+
+预存款搜索
+    等待button元素可见    ${预存款账户搜索}
+    sleep    1
+    input text    ${预存款账户搜索}    ${YCKCode}
+    sleep    1
+    click button    ${确认搜索}
+    sleep    1
+    等待element元素可见    ${选择账户}
+    sleep    1
+    click element    ${选择账户}
+    sleep    1
+
+数据查询
+    数据库查询操作    ${getcustomerbillcode}
+    ${YCKKH}    set variable    ${var[0][1] }
+    Set Suite Variable    ${YCKKH}
+    ${YCKCode}    set variable    ${var[0][2] }
+    Set Suite Variable    ${YCKCode}
+
+表单单元格数据不为0的预存款
+    : FOR    ${i}    IN RANGE    1    5
+    \    ${ele}    Set Variable    //tbody/tr[${i}]/td[7]
+    \    ${value}    get text    ${ele}
+    \    log    ${value}
+    \    Run Keyword If    ${value}!=0    Exit For Loop
+    [Return]    ${ele}

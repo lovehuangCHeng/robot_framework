@@ -1,0 +1,106 @@
+*** Settings ***
+Variables         ../../../../config/elements/收费管理/退款Xpath.py
+Library           Selenium2Library    timeout=20
+Resource          ../../../通用方法.robot
+Library           string
+
+*** Keywords ***
+搜索票据
+    等待element元素可见    ${票据号输入框 }
+    sleep    2
+    input text    ${票据号输入框 }    ${TKPJID}
+    等待element元素可见    ${票据号搜索按钮 }
+    sleep    2
+    click button    ${票据号搜索按钮 }
+    等待element元素可见    ${搜索重置按钮 }
+    sleep    2
+    click button    ${搜索重置按钮 }
+    sleep    2
+
+新建退款并打印
+    等待element元素可见    ${退款管理下拉框}
+    sleep    2
+    click element    ${退款管理下拉框}
+    等待element元素可见    ${退款管理下拉框1}
+    sleep    2
+    click element    ${退款管理下拉框1}
+    等待element元素可见    ${退款管理下拉框2}
+    sleep    2
+    click element    ${退款管理下拉框2}
+    等待element元素可见    ${退款管理下拉框3}
+    sleep    2
+    click element    ${退款管理下拉框3}
+    等待element元素可见    ${退款管理下拉框4}
+    sleep    2
+    click element    ${退款管理下拉框4}
+    等待element元素可见    ${退款管理下拉框5}
+    sleep    2
+    click element    ${退款管理下拉框5}
+    等待element元素可见    ${退款管理下拉框6}
+    sleep    2
+    click element    ${退款管理下拉框6}
+    等待element元素可见    ${退款管理下拉框7}
+    sleep    2
+    click element    ${退款管理下拉框7}
+    sleep    2
+    click element    ${选择未退款的账单}
+    等待element元素可见    ${退款按钮}
+    sleep    2
+    click button    ${退款按钮}
+    等待element元素可见    ${退款备注}
+    sleep    2
+    input text    ${退款备注}    123
+    sleep    2
+    click element    ${选择退款方式 }
+    等待element元素可见    ${选择现金退款}
+    sleep    2
+    click element    ${选择现金退款}
+    sleep    2
+    click button    ${确定但不打印}
+    等待element元素可见    ${退款成功判断}
+    sleep    2
+    click button    ${退款成功确定}
+    sleep    2
+
+新建退款并不打印
+    等待element元素可见    ${退款管理下拉框}
+    sleep    2
+    click element    ${退款管理下拉框}
+    sleep    2
+    click element    ${退款管理下拉框1}
+    sleep    2
+    click element    ${退款管理下拉框2}
+    sleep    2
+    click element    ${退款管理下拉框3}
+    sleep    2
+    click element    ${退款管理下拉框4}
+    sleep    2
+    click element    ${退款管理下拉框5}
+    sleep    2
+    click element    ${退款管理下拉框6}
+    sleep    2
+    click element    ${退款管理下拉框7}
+    sleep    2
+    click element    ${选择未退款的账单}
+    sleep    2
+    click button    ${退款按钮}
+    等待element元素可见    ${退款备注}
+    sleep    3
+    input text    ${退款备注}    123
+    sleep    2
+    click element    ${选择退款方式 }
+    等待element元素可见    ${选择现金退款}
+    sleep    3
+    click element    ${选择现金退款}
+    sleep    2
+    click button    ${确定并开始打印}
+    等待element元素可见    ${退款成功判断}
+    sleep    2
+    click button    ${退款成功确定}
+    sleep    2
+
+数据查询
+    数据库查询操作    ${GetBillPT2P0}
+    ${TKPJID}    set variable    ${var[0][3] }
+    Set Suite Variable    ${TKPJID}
+    log    ${TKPJID}

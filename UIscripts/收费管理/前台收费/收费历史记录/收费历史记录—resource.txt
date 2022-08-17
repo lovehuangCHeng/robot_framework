@@ -1,0 +1,6 @@
+*** Settings ***
+Variables         ../../../../config/elements/收费管理/历史Xpath.py
+Library           Selenium2Library    timeout=20
+Resource          ../../../通用方法.robot
+
+*** Keywords ***

@@ -1,0 +1,104 @@
+*** Settings ***
+Variables         ../../../../config/elements/收费管理/交款Xpath.py
+Library           Selenium2Library    timeout=20
+Resource          ../../../通用方法.robot
+
+*** Keywords ***
+交款
+    click element    ${新建交款申请}
+    等待element元素可见    ${管理区下拉框}
+    sleep    3
+    click element    ${管理区下拉框}
+    sleep    3
+    click element    ${下拉框选择管理区}
+    等待element元素可见    ${交款数据存在断言}
+    sleep    3
+    click button    ${导出excel}
+    sleep    3
+    click element    ${收款明细}
+    等待element元素可见    ${明细数据存在断言}
+    sleep    3
+    click button    ${导出明细excel}
+    sleep    3
+    click element    ${项目明细}
+    等待element元素可见    ${项目数据存在断言}
+    sleep    3
+    click button    ${导出项目excel}
+    sleep    3
+    input text    ${交款备注}    UItejiaokuan
+    sleep    3
+    click button    ${保存交款}
+    等待element元素可见    ${交款成功断言}
+    sleep    3
+    click button    ${确定交款成功}
+    sleep    3
+    click button    ${搜索交款申请}
+
+编辑交款
+    click element    ${选择交款申请}
+    sleep    3
+    click button    ${交款申请编辑}
+    等待element元素可见    ${交款数据存在断言}
+    sleep    3
+    click button    ${导出excel}
+    sleep    3
+    click element    ${收款明细}
+    等待element元素可见    ${明细数据存在断言}
+    sleep    3
+    click button    ${导出明细excel}
+    sleep    3
+    click element    ${项目明细}
+    等待element元素可见    ${项目数据存在断言}
+    sleep    3
+    click button    ${导出项目excel}
+    sleep    3
+    input text    ${交款备注}    UItejiaokuan
+    sleep    3
+    click button    ${保存交款}
+    等待element元素可见    ${更新成功断言}
+    sleep    3
+    click button    ${确定交款成功}
+
+查看交款明细
+    click element    ${选择交款申请}
+    sleep    3
+    click button    ${交款申请查看明细}
+    等待element元素可见    ${交款数据存在断言}
+    sleep    3
+    click button    ${导出excel}
+    sleep    3
+    click element    ${收款明细}
+    等待element元素可见    ${明细数据存在断言}
+    sleep    3
+    click button    ${导出明细excel}
+    sleep    3
+    click element    ${项目明细}
+    等待element元素可见    ${项目数据存在断言}
+    sleep    3
+    click button    ${导出项目excel}
+    sleep    3
+    click element    ${查看明细返回}
+
+审核交款
+    click element    ${选择交款申请}
+    sleep    3
+    click button    ${审核交款申请}
+    等待element元素可见    ${审核成功断言}
+    sleep    3
+    click button    ${审核成功确定}
+
+撤销审核交款
+    click element    ${选择已审核交款}
+    sleep    3
+    click button    ${撤销交款审核}
+    等待element元素可见    ${撤销审核成功断言}
+    sleep    3
+    click button    ${撤销审核确定}
+
+撤销交款扎帐
+    click element    ${选择交款申请}
+    sleep    3
+    click button    ${撤销扎帐}
+    等待element元素可见    ${撤销成功断言}
+    sleep    3
+    click button    ${撤销扎帐确定}

@@ -1,0 +1,99 @@
+*** Settings ***
+Library           Selenium2Library
+Variables         ../../../../config/elements/OA系统/OAXpath.py
+Resource          ../../../通用方法.robot
+
+*** Keywords ***
+新建保存文档资料
+    ${wdzl1}    Evaluate    random.randint(1000, 9999)    random
+    ${随机文档名称}    Catenate    ${wdzl1}    文档名称UITE
+    等待element元素可见    ${新建文档资料按钮}
+    sleep    2
+    Click Button    ${新建文档资料按钮}
+    等待element元素可见    ${文档资料管理区下拉框}
+    sleep    2
+    Click Element    ${文档资料管理区下拉框}
+    等待element元素可见    ${文档资料选择管理区}
+    sleep    2
+    Click Element    ${文档资料选择管理区}
+    sleep    1
+    Input Text    ${文档编号}    ${wdzl1}    lb
+    Input Text    ${文档名称}    ${随机文档名称}
+    Click Element    ${文档类型下拉框}
+    sleep    2
+    Click Element    ${文档类别选择类别}
+    等待element元素可见    ${文档版本}
+    sleep    2
+    Input Text    ${文档版本}    V    ${wdzl1}
+    Click Button    ${文档资料保存按钮}
+
+新建取消文档资料
+    等待element元素可见    ${新建文档资料按钮}
+    sleep    2
+    Click Button    ${新建文档资料按钮}
+    等待element元素可见    ${文档资料取消按钮}
+    sleep    2
+    Click Button    ${文档资料取消按钮}
+
+搜索文档资料
+    Input Text    ${文档资料管理搜索框}    uite
+    sleep    2
+    搜索框内置搜索按钮
+	sleep    2
+
+编辑保存文档资料
+    Click Element    ${编辑文档资料}
+    等待element元素可见    ${文档版本}
+    sleep    2
+    input text    ${文档版本}    VUIteBIANJI
+    sleep    3
+    Click Button    ${文档资料保存按钮}
+
+编辑取消文档资料
+    Click Element    ${编辑文档资料}
+    sleep    1
+    Click Button    ${文档资料取消按钮}
+
+查看文档资料
+    等待element元素可见    ${查看文档资料}
+    sleep    2
+    Click Element    ${查看文档资料}
+    sleep    1
+
+查看页面返回
+    等待element元素可见    ${文档资料返回}
+    sleep    2
+    Click Button    ${文档资料返回}
+
+更多-添加附件（伪）
+    等待element元素可见    ${文档资料更多}
+    sleep    2
+    Mouse Up    ${文档资料更多}
+    等待element元素可见    ${更多添加附件}
+    sleep    2
+    Click Element    ${更多添加附件}
+    等待element元素可见    ${添加附件确定}
+    sleep    2
+    Click Element    ${添加附件确定}
+
+更多-删除附件
+    sleep    3
+    Mouse Up    ${文档资料更多}
+    等待element元素可见    ${更多删除附件}
+    sleep    2
+    Click Element    ${更多删除附件}
+
+更多-审核
+    Mouse Up    ${文档资料更多}
+    sleep    1
+    Click Element    ${更多审核}
+
+更多-撤销审核
+    Mouse Up    ${文档资料更多}
+    sleep    1
+    Click Element    ${更多撤销审核}
+
+更多-删除
+    Mouse Up    ${文档资料更多}
+    sleep    1
+    Click Element    ${更多删除}

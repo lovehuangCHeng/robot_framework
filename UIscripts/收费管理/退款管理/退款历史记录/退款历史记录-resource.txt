@@ -1,0 +1,65 @@
+*** Settings ***
+Variables         ../../../../config/elements/收费管理/退款Xpath.py
+Library           Selenium2Library    timeout=20
+Resource          ../../../通用方法.robot
+Library           string
+
+*** Keywords ***
+高级搜索
+    sleep    2
+    进入iframe
+    等待element元素可见    ${高级搜索下拉}
+    sleep    2
+    Click button    ${高级搜索下拉}
+    等待element元素可见    ${退款日期}
+    sleep    2
+    Click Element    ${退款日期}
+    等待element元素可见    ${选择本月}
+    sleep    2
+    click element    ${选择本月}
+    等待element元素可见    ${确认搜索}
+    sleep    2
+    click button    ${确认搜索}
+    sleep    3
+    click button    ${导出excel}
+    sleep    3
+    click button    ${重置搜索}
+
+查看退款明细
+    sleep    3
+    click element    ${勾选退款历史}
+    等待element元素可见    ${查看退款历史}
+    sleep    2
+    Click button    ${查看退款历史}
+    等待element元素可见    ${查看详细返回}
+    sleep    2
+    Click button    ${查看详细返回}
+    sleep    3
+
+退款补打（不打印）
+    sleep    3
+    click element    ${勾选退款历史}
+    等待element元素可见    ${补打票据按钮}
+    sleep    2
+    Click button    ${补打票据按钮}
+    等待element元素可见    ${打印预览按钮}
+    sleep    2
+    Click button    ${打印预览按钮}
+    等待element元素可见    ${取消预览}
+    sleep    2
+    Click button    ${取消预览}
+    等待element元素可见    ${确定但不打印}
+    sleep    2
+    Click button    ${确定但不打印}
+    sleep    3
+
+退款补打（打印）
+    sleep    3
+    click element    ${勾选退款历史}
+    等待element元素可见    ${补打票据按钮}
+    sleep    2
+    Click button    ${补打票据按钮}
+    等待element元素可见    ${确定并开始打印}
+    sleep    2
+    Click button    ${确定并开始打印}
+    sleep    3

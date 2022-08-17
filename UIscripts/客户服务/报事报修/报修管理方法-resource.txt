@@ -1,0 +1,765 @@
+*** Settings ***
+Resource          ../../通用方法.robot
+Variables         ../../../config/elements/客户服务/报事报修.py
+Library           Selenium2Library
+
+*** Keywords ***
+工单大类变量
+    ${testGDDL}    Time Random    工单大类
+    Set Suite Variable    ${testGDDL}
+    [Return]    ${testGDDL}
+	
+工单子类变量
+    ${testGDZL}    Time Random    工单子类
+    Set Suite Variable    ${testGDZL}
+    [Return]    ${testGDZL}
+
+切换工单设置标签
+	切换工单时限tab
+	等待element元素可见		${工单处理时限设置tab}
+	click element    ${工单处理时限设置tab}
+	等待element元素可见		${功能设置tab}
+	click element    ${功能设置tab}
+	等待element元素可见		${工单类型管理tab}
+	click element    ${工单类型管理tab}
+	
+	
+新建工单大类
+	[Arguments]    ${testGDDL}
+	等待element元素可见		${工单大类新增}
+	click element    ${工单大类新增}
+    sleep    1
+	Input Text    ${工单名称}    ${testGDDL}
+    sleep    1
+	Input Text    ${工单编号}    100001
+    sleep    1
+	click element    ${保存}
+    sleep    1
+	等待element元素可见		//ul/li/span[text()='${testGDDL}']
+	
+编辑工单大类
+	等待element元素可见		${工单大类新增}
+	click element 	//ul/li/span[text()='${testGDDL}']/..//a/i[@title='编辑']
+	sleep    1
+	Input Text    ${工单编号}    200001
+    sleep    1
+	click element    ${保存}
+    sleep    1
+
+删除工单大类
+	[Arguments]    ${testGDDL}
+	等待element元素可见		${工单大类新增}
+	click element 	//ul/li/span[text()='${testGDDL}']/..//a/i[@title='删除']
+	sleep    1
+	click element   ${确认删除}   
+    sleep    1
+	等待element元素可见   ${删除成功}
+
+新建工单子类
+	[Arguments]    ${testGDZL}
+	等待element元素可见		${工单大类第一个数据}
+	click element    ${工单大类第一个数据}
+    sleep    1
+	click element    ${新建}
+    sleep    1
+	Input Text    ${工单名称}    ${testGDZL}
+    sleep    1
+	Input Text    ${工单编号}    100001
+    sleep    1
+	click element    ${保存}
+    sleep    1
+	等待element元素可见		//tbody/tr/td[text()='${testGDZL}']
+
+编辑工单子类
+	等待element元素可见		${工单大类第一个数据}
+	click element    ${工单大类第一个数据}
+	sleep  1
+	click element    ${工单子类编辑}
+	sleep    1
+	click element    ${保存}
+    sleep    1
+	
+删除工单子类
+	[Arguments]    ${testBJQY}
+	搜索工单子类	${testBJQY}
+	sleep 	 1
+	click element    ${工单子类勾选第一个}
+	sleep    1
+	click element    ${批量删除}
+    sleep    1
+	click element    ${确认删除}
+    sleep    1
+	
+搜索工单子类
+	[Arguments]    ${testBJQY}
+	等待element元素可见		${工单大类第一个数据}
+	click element    ${工单大类第一个数据}
+	sleep 	 1
+	等待element元素可见    ${搜索框}
+    sleep    1
+    Input Text    ${搜索框}    ${testBJQY}
+    sleep    1
+    Click Element    ${搜索按钮}
+    sleep    1
+	
+切换工单时限tab
+	等待element元素可见		${工单时限管理tab}
+	click element    ${工单时限管理tab}
+	sleep    1
+	
+新建工单时限
+	切换工单时限tab
+	等待element元素可见		${新建}         
+	click element    ${新建}
+    sleep    1
+	Input Text    ${工单时限名称}    1周内处理的工单
+    sleep    1
+	Input Text    ${工单时限编号}    004
+    sleep    1
+	Input Text    ${工单时限工时}    36
+    sleep    1
+	Input Text    ${工单时限备注}    这个是不紧急报修处理
+    sleep    1
+	click element    ${保存}
+    sleep    1
+	等待element元素可见		${操作成功}
+
+编辑工单时限
+	切换工单时限tab
+	等待element元素可见		${工单时限编辑}
+	click element    ${工单时限编辑}
+    sleep    1
+	click element    ${保存}
+    sleep    1
+	等待element元素可见		${操作成功}
+
+删除工单时限
+	切换工单时限tab
+	工单普通搜索	1周内处理的工单
+	sleep	1
+	等待element元素可见		${工单时限删除}
+	click element    ${工单时限删除}
+    sleep    1
+	click element    ${确认删除}
+    sleep    1
+	等待element元素可见		${工单时限删除成功}
+	
+工单时限导出
+	切换工单时限tab
+	导出Excel
+	
+导出Excel
+	等待element元素可见    ${导出Excel}
+    click element    ${导出Excel}
+    sleep    1
+    等待element元素可见    ${列表元素}
+
+普通搜索
+	[Arguments]    ${testBJQY}
+	等待element元素可见    ${搜索框}
+    sleep    1
+    Input Text    ${搜索框}    ${testBJQY}
+    sleep    1
+    Click Element    ${搜索按钮}
+    sleep    1
+	
+工单普通搜索
+	[Arguments]    ${testBJQY}
+	等待element元素可见    ${工单时限搜索}
+    sleep    1
+    Input Text    ${工单时限搜索}    ${testBJQY}
+    sleep    1
+    Click Element    ${工单时限搜索按钮}
+    sleep    1
+
+报修切换待分派
+	等待element元素可见		${报修状态_待分派}
+	click element    ${报修状态_待分派}
+	sleep    1
+	
+报修切换待开始
+	等待element元素可见		${工单状态_待开始}
+	click element    ${工单状态_待开始}
+	sleep    1
+	
+报修切换进行中
+	等待element元素可见		${工单状态_进行中}
+	click element    ${工单状态_进行中}
+	sleep    1
+	
+报修切换已分配
+	等待element元素可见		${报修状态_已分配}
+	click element    ${报修状态_已分配}
+	sleep    1
+	
+报修切换处理中
+	等待element元素可见		${报修状态_处理中}
+	click element    ${报修状态_处理中}
+	sleep    1
+	
+报修切换已处理
+	等待element元素可见		${报修状态_已处理}
+	click element    ${报修状态_已处理}
+	sleep    1
+	
+报修切换已确认已完成
+	等待element元素可见		${报修状态_已确认已完成}
+	click element    ${报修状态_已确认已完成}
+	sleep    1
+	
+报修切换已确认未完成
+	等待element元素可见		${报修状态_已确认未完成}
+	click element    ${报修状态_已确认未完成}
+	sleep    1
+	
+报修切换已关闭
+	等待element元素可见		${报修状态_已关闭}
+	click element    ${报修状态_已关闭}
+	sleep    1
+	
+报修切换已作废
+	等待element元素可见		${报修状态_已作废}
+	click element    ${报修状态_已作废}
+	sleep    1
+	
+新建报修数据
+	等待element元素可见		${新建报修}
+	click element    ${新建报修}
+    sleep    1
+	click element    ${报修_报修位置}
+    sleep    1
+	click element    ${报修_报修位置_管理区}
+    sleep    1
+	click element    ${报修_报修位置_楼宇}
+    sleep    1
+	Input Text    ${报修_报修地点}    管理区的外围马路
+    sleep    1
+	Input Text    ${报修_报修详情}    楼上漏水请安排人处理一下
+    sleep    1
+	Input Text    ${报修_报修人}    这是lisi
+    sleep    1
+	Input Text    ${报修_联系电话}    18512369854714
+    sleep    1
+	click element    ${报修_预约时间}
+    sleep    1
+	click element    ${报修_预约时间_此刻}
+	sleep    1
+	click element    ${报修_报修来源}
+    sleep    1
+	click element    ${报修_报修来源_上门}
+	sleep    1
+	click element    ${报修_工单时限}
+    sleep    1
+	click element    ${报修_工单时限选择}
+	sleep    1
+	click element    ${报修_工单大类}
+    sleep    1
+	click element    ${报修_工单大类_报修业务}
+	sleep    1
+	click element    ${报修_工单子类}
+    sleep    1
+	click element    ${报修_工单子类_一般单}
+	sleep    1
+
+	
+新建报修
+	新建报修数据
+	click element    ${保存}
+    sleep    1
+	等待element元素可见		${保存成功}
+	
+新建报修完结
+	新建报修数据
+	click element    ${报修_完结}
+    sleep    1
+	Input Text    ${添加作废说明详情}    18512369854714
+    sleep    1
+	click element    ${保存}
+    sleep    1
+	
+新建报修派工
+	新建报修数据
+	click element    ${报修_派工}
+    sleep    1
+	click element    ${报修_派工类型}
+    sleep    1
+	click element    ${报修_派工类型_无偿}
+	sleep    1
+	click element    ${报修_指派给}
+    sleep    1
+	click element    ${报修_指派给_testing}
+	sleep    1
+	click element    ${保存}
+    sleep    1
+	等待element元素可见		${派工成功}
+	
+	
+报修待分派数据按钮检查
+	报修切换待分派
+	等待element元素可见		${编辑}
+	等待element元素可见		${删除}
+	等待element元素可见		${派工}
+	等待element元素可见		${更多}
+	click element    ${更多}
+	sleep    1
+	等待element元素可见		${报修_转交}
+	等待element元素可见		${报修_更多_添加说明}
+	等待element元素可见		${报修_更多_作废}
+	
+报修已分配数据按钮检查
+	等待element元素可见		${编辑}
+	等待element元素可见		${报修_添加说明}
+	等待element元素可见		${报修_作废}
+
+报修已确认数据按钮检查
+	等待element元素可见		${编辑}
+	等待element元素可见		${报修_回访}
+	等待element元素可见		${派工}
+	等待element元素可见		${更多}
+	click element    ${更多}
+	sleep    1
+	等待element元素可见		${报修_更多_添加说明}
+	等待element元素可见		${报修_更多_作废}
+	
+报修作废数据按钮检查
+	报修切换已作废
+	等待element元素可见		${报修_启用}
+	sleep    1
+	
+报修tab状态切换
+	报修切换待分派
+	报修切换已分配
+	报修切换处理中
+	报修切换已处理
+	报修切换已确认已完成
+	报修切换已确认未完成
+	报修切换已关闭
+	报修切换已作废
+
+报修派工
+	报修切换待分派
+	等待element元素可见		${派工}
+	click element    ${派工}
+    sleep    1
+	click element    ${报修_派工类型}
+    sleep    1
+	click element    ${报修_派工类型_无偿}
+	sleep    1
+	click element    ${报修_指派给}
+    sleep    1
+	click element    ${报修_指派给_testing}
+	sleep    1
+	click element    ${保存}
+    sleep    1
+	等待element元素可见		${派工成功}
+
+报修添加说明
+	报修切换已分配
+	等待element元素可见		${报修_添加说明}
+	sleep    1
+	click element    ${报修_添加说明}
+    sleep    1
+	Input Text    ${添加作废说明详情}    请尽快按排人员进行处理
+    sleep    1
+	click element    ${保存}
+    sleep    1
+	
+报修作废
+	报修切换待分派
+	等待element元素可见		${更多}
+	sleep    1
+	click element    ${更多}
+    sleep    1
+	click element    ${报修_更多_作废}
+    sleep    1
+	Input Text    ${添加作废说明详情}    这个报修复单作废了
+    sleep    1
+	click element    ${保存}
+    sleep    1
+	
+报修启用
+	报修切换已作废
+	click element    ${报修_启用}
+    sleep    1
+	click element    ${确认删除}
+    sleep    1
+	等待element元素可见		${启用成功}
+	
+报修转交
+	报修切换待分派
+	等待element元素可见		${更多}
+	sleep    1
+	click element    ${更多}
+    sleep    1
+	click element    ${报修_转交}
+    sleep    1
+	click element	${报修_转交给}
+    sleep    1
+	click element	${报修_转交选择管理区数据}
+    sleep    1
+	click element    ${保存}
+    sleep    1
+	
+报修回访
+	报修切换已确认已完成
+	等待element元素可见		${报修_回访}
+	sleep    1
+	click element    ${报修_回访}
+    sleep    1
+	Input Text    ${报修_回访对象}	 王五
+    sleep    1
+	Input Text	${报修_访问电话}	 15213641478
+    sleep    1
+	click element	${报修_评价}
+    sleep    1
+	click element	${报修_评价_满意}
+    sleep    1
+	Input Text		${报修_评价内容}	报修事项已完成
+	sleep	 1
+	
+报修回访保存
+	报修回访
+	click element    ${保存}
+    sleep    1
+
+报修回访关闭
+	报修回访
+	click element    ${保存并关闭工单}
+    sleep    1
+
+
+报修删除
+	报修切换待分派
+	等待element元素可见		${删除}
+	sleep    1
+	click element    ${删除}
+    sleep    1
+	click element    ${确认删除}
+    sleep    1
+	等待element元素可见		${删除成功}
+	
+	
+报修待分派查看页面
+	报修切换待分派
+	等待element元素可见		${报修_列表报修单号}
+	click element   ${报修_列表报修单号}
+	等待element元素可见		${报修_查看页面title}
+	等待element元素可见		${报修_查看页面_编辑}
+	等待element元素可见		${报修_查看页面_派工}
+	等待element元素可见		${报修_查看页面_完成}
+	等待element元素可见		${报修_查看页面_添加说明}
+	click element   ${报修_关闭查看页面}
+	
+	
+报修已分配查看页面
+	报修切换已分配
+	等待element元素可见		${报修_列表报修单号}
+	click element   ${报修_列表报修单号}
+	等待element元素可见		${报修_查看页面title}
+	等待element元素可见		${报修_查看页面_编辑}
+	等待element元素可见		${报修_查看页面_添加说明}
+	click element   ${报修_关闭查看页面}
+
+报修已确认查看页面
+	报修切换确认已完成
+	等待element元素可见		${报修_列表报修单号}
+	click element   ${报修_列表报修单号}
+	等待element元素可见		${报修_查看页面title}
+	等待element元素可见		${报修_查看页面_编辑}
+	等待element元素可见		${报修_查看页面_派工}
+	等待element元素可见		${报修_查看页面_添加说明}
+	click element   ${报修_关闭查看页面}
+	
+报修已关闭查看页面
+	报修切换已关闭
+	等待element元素可见		${报修_列表报修单号}
+	click element   ${报修_列表报修单号}
+	等待element元素可见		${报修_查看页面title}
+	等待element元素可见		${报修_查看页面_添加说明}
+	click element   ${报修_关闭查看页面}
+
+报修已作废查看页面
+	报修切换已作废
+	等待element元素可见		${报修_列表报修单号}
+	click element   ${报修_列表报修单号}
+	等待element元素可见		${报修_查看页面title}
+	等待element元素可见		${报修_查看页面_添加说明}
+	click element   ${报修_关闭查看页面}
+	
+报修高级搜索
+	等待element元素可见		${报修_搜索更多}
+	click element   ${报修_搜索更多}
+	sleep	1
+	Input Text   ${报修_报修人}		这是lisi
+	sleep	1
+	click element  ${高级搜索}
+	sleep	1
+	断言值包含	 ${报修_列表报修人}	这是lisi
+	sleep    1
+	click element   ${报修_搜索_报修来源}
+	sleep	1
+	click element    ${报修_报修来源_上门}
+	sleep    1
+	click element  ${高级搜索}
+	sleep    1
+	断言值包含	 ${报修_列表报修来源}	上门
+	sleep	1
+	click element   ${报修_搜索_工单大类}
+	sleep	1
+	click element    ${报修_工单大类_报修业务}
+	sleep    1
+	click element  ${高级搜索}
+	sleep	1
+	断言值包含	 ${报修_列表报修业务}	报修业务
+	
+按派工单号进行搜索
+	${派工单号}		获取元素文本	${工单_获取报派工单号}
+	sleep 	1
+	Input Text   ${工单_查询_派工单号}	 ${派工单号}
+	sleep 	1
+	click element  ${高级搜索}
+	sleep 	1
+	
+派工单回退
+	报修切换待开始
+	等待element元素可见		${回退}
+	click element  ${回退}
+	sleep	1
+	click element  ${确认删除}
+	sleep	1
+	
+派工单开始处理
+	报修切换待开始
+	click element  ${开始处理}
+	sleep	1
+	
+派工单打印
+	报修切换已关闭
+	click element  ${打印派工单}
+	sleep	1
+	等待element元素可见		${工单_打印}
+	click element 	${工单_取消打印}
+	
+派工单回单
+	报修切换进行中
+	等待element元素可见		${回单}
+	click element  ${回单}
+	sleep	1
+	Input Text 	${工单_完工说明}	工单已处理了，请及时确认
+	sleep	1
+	click element	${保存}
+	
+派工单确认
+	报修切换已处理
+	等待element元素可见		${确认}
+	click element  ${确认}
+	sleep	1
+	click element  ${工单_已完成}
+	sleep	1
+	Input Text 	${工单_完成情况说明}	工单已确认处理完毕
+	sleep	1
+	click element	${保存}
+	
+派工单作废
+	报修切换已确认已完成
+	等待element元素可见		${报修_作废}
+	click element  ${报修_作废}
+	sleep	1
+	Input Text 	${工单_完成情况说明}	工单作废了
+	sleep	1
+	click element	${保存}
+	等待element元素可见 	${作废派工单成功}
+	
+派工单启用
+	报修切换已作废
+	等待element元素可见		${报修_启用}
+	click element  ${报修_启用}
+	sleep	1
+	等待element元素可见 	${启用派工单成功}
+
+派工单查看页面按钮
+	等待element元素可见		${工单_查看页面_领料}
+	等待element元素可见		${工单_查看页面_退料}
+	等待element元素可见		${工单_查看页面_添加费用}
+	等待element元素可见		${工单_查看页面_添加说明}
+
+派工单待开始查看页面
+	报修切换待开始
+	等待element元素可见		${工单_列表报派工单号}
+	click element  ${工单_列表报派工单号}
+	sleep	1
+	等待element元素可见		${工单_查看页面_编辑}
+	派工单查看页面按钮
+	
+派工单待开始列表检查
+	报修切换待开始
+	等待element元素可见		${编辑}
+	等待element元素可见		${回退}
+	等待element元素可见		${开始处理}
+	等待element元素可见		${更多}
+	click element 	${更多}
+	sleep	1
+	等待element元素可见		${报修_更多_添加说明}
+	等待element元素可见		${报修_更多_作废}
+	等待element元素可见		${工单_更多_打印派工单}
+	
+派工单进行中查看页面
+	报修切换进行中
+	等待element元素可见		${工单_列表报派工单号}
+	click element  ${工单_列表报派工单号}
+	sleep	1
+	等待element元素可见		${工单_查看页面_回单}
+	等待element元素可见		${工单_查看页面_延时申请}
+	派工单查看页面按钮
+
+派工单进行中列表检查
+	报修切换进行中
+	等待element元素可见		${回单}
+	等待element元素可见		${报修_作废}
+	等待element元素可见		${报修_添加说明}
+	等待element元素可见		${更多}
+	click element 	${更多}
+	sleep	1
+	等待element元素可见		${工单_更多_打印派工单}
+	
+派工单已处理查看页面
+	报修切换已处理
+	等待element元素可见		${工单_列表报派工单号}
+	click element  ${工单_列表报派工单号}
+	sleep	1
+	派工单查看页面按钮
+
+派工单已处理列表检查
+	报修切换已处理
+	等待element元素可见		${确认}
+	等待element元素可见		${报修_作废}
+	等待element元素可见		${报修_添加说明}
+	等待element元素可见		${更多}
+	click element 	${更多}
+	sleep	1
+	等待element元素可见		${工单_更多_打印派工单}
+
+派工单已确认查看页面
+	报修切换已确认已完成
+	等待element元素可见		${工单_列表报派工单号}
+	click element  ${工单_列表报派工单号}
+	sleep	1
+	派工单查看页面按钮
+
+派工单已确认列表检查
+	报修切换已确认已完成
+	等待element元素可见		${工单_列表报派工单号}
+	等待element元素可见		${打印派工单}
+	等待element元素可见		${报修_作废}
+	等待element元素可见		${报修_添加说明}
+
+派工单已关闭查看页面
+	报修切换已关闭
+	等待element元素可见		${工单_列表报派工单号}
+	click element  ${工单_列表报派工单号}
+	sleep	1
+	派工单查看页面按钮
+	
+派工单已关闭列表检查
+	报修切换已关闭
+	等待element元素可见		${工单_列表报派工单号}
+	等待element元素可见		${打印派工单}
+	等待element元素可见		${报修_作废}
+	等待element元素可见		${报修_添加说明}
+
+派工单领料
+	等待element元素可见		${工单_列表报派工单号}
+	click element  ${工单_列表报派工单号}
+	sleep	1
+	click element 	${工单_查看页面_领料}
+	sleep	1
+	click element 	${工单_查看页面_领料材料}
+	sleep	1
+	Input Text 	${工单_查看页面_领料数量}	1
+	sleep	1
+	click element 	${保存}
+	sleep	1
+	
+派工单退料
+	等待element元素可见		${工单_列表报派工单号}
+	click element  ${工单_列表报派工单号}
+	sleep	1
+	click element 	${工单_查看页面_退料}
+	sleep	1
+	Input Text 	${工单_查看页面_退料数量}	1
+	sleep	1
+	click element 	${保存}
+	sleep	1
+	
+延时申请
+	click element 	${工单_查看页面_延时申请}
+	sleep	1
+	Input Text		${工单_新工单时限}	10
+	sleep	1
+	Input Text		${工单_申请原因}	时间不够处理报修事项
+	sleep	1
+	click element 	${保存}
+	sleep	1
+	等待element元素可见 	${延时申请成功}
+
+派工单延时申请
+	报修切换进行中
+	等待element元素可见		${工单_列表报派工单号}
+	click element  ${工单_列表报派工单号}
+	sleep	1
+	延时申请
+	
+维修延时申请
+	等待element元素可见		${维修_进入查看页面}
+	click element  ${维修_进入查看页面}
+	sleep	1
+	延时申请
+	
+维修延时搜索
+	等待element元素可见		${维修_审批中}
+	click element 	${维修_审批中}
+	sleep 	1
+	click element  ${高级搜索}
+	sleep	1
+	
+维修延时同意
+	维修延时搜索
+	等待element元素可见		${维修_同意}
+	click element  ${维修_同意}
+	sleep	1
+	
+维修延时拒绝
+	维修延时搜索
+	等待element元素可见		${维修_拒绝}
+	click element  ${维修_拒绝}
+	sleep	1
+	Input Text		${维修_拒绝原因}	时间够处理报修事项，拒绝延时
+	sleep	1
+	click element  ${保存}
+	sleep	1
+	
+
+	
+	
+
+
+
+
+
+
+
+
+	
+	
+
+
+	
+
+	
+	
+	
+	
+
+
+
+

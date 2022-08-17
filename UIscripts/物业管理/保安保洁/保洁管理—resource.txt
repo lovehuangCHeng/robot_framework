@@ -1,0 +1,301 @@
+*** Settings ***
+Resource          ../../通用方法.robot
+Variables         ../../../config/elements/物业管理/保洁管理.py
+Library           Selenium2Library
+
+*** Keywords ***
+保洁区域变量
+    ${testBJQY}    Time Random    保洁区域
+    Set Suite Variable    ${testBJQY}
+    [Return]    ${testBJQY}
+	
+保洁记录变量
+    ${testBJJJ}    Time Random    项目名称
+    Set Suite Variable    ${testBJJJ}
+    [Return]    ${testBJJJ}
+	
+保洁检查变量
+    ${testBJJC}    Time Random    检查结果
+    Set Suite Variable    ${testBJJC}
+    [Return]    ${testBJJC}
+	
+保洁工具变量
+    ${testBJJG}    Time Random    工具名称
+    Set Suite Variable    ${testBJJG}
+    [Return]    ${testBJJG}
+
+新建保洁区域
+	[Arguments]    ${testBJQY}
+	click element    ${搜索按钮}
+	sleep	1
+    click element    ${新建}
+    等待element元素可见    ${保洁区域_管理区}
+    sleep    1
+    click element    ${保洁区域_管理区}
+    sleep    1
+	click element    ${保洁区域_管理区数据}
+    sleep    1
+	Input Text    ${保洁区域_区域代码}    100001
+    sleep    2
+	Input Text    ${保洁区域_区域名称}    ${testBJQY}
+    sleep    2
+	Input Text    ${保洁区域_地址}    ${testBJQY}
+    sleep    2
+	Input Text    ${保洁区域_工作要求}    ${testBJQY}
+    sleep    2
+	Input Text    ${保洁区域_备注}    ${testBJQY}
+    sleep    2
+	click element    ${保洁区域_责任人}
+    sleep    1
+	click element    ${保洁区域_选择责任人}
+    sleep    1
+	click element    ${保洁区域_是否外包}
+    sleep    1
+	click element    ${保洁区域_是否外包_是}
+	sleep    1
+	click element    ${保存}
+    sleep    1
+	等待element元素可见    ${新建成功}	
+			
+新建保洁记录
+	[Arguments]    ${testBJJJ}
+	click element    ${搜索按钮}
+	sleep	1
+    click button    ${新建}
+    等待element元素可见    ${保洁记录_管理区}
+    sleep    1
+    click element    ${保洁记录_管理区}
+    sleep    1
+	click element    ${保洁记录_管理区数据}
+    sleep    1
+	click element    ${保洁记录_保洁区域}
+    sleep    2
+	click element   ${保洁记录_保洁区域数据}
+    sleep    2
+	Input Text    ${保洁记录_项目名称}    ${testBJJJ}
+    sleep    2
+	Input Text    ${保洁记录_具体内容}    ${testBJJJ}
+    sleep    2
+	Input Text    ${保洁记录_备注}    ${testBJJJ}
+    sleep    2
+	click element    ${保洁记录_项目类型}
+	等待element元素可见    ${保洁记录_项目类型数据}
+    sleep    1
+	click element    ${保洁记录_项目类型数据}
+    sleep    1
+	click element    ${保洁记录_完成时间}
+	等待element元素可见    ${保洁记录_完成时间_今天}
+    sleep    1
+	click element    ${保洁记录_完成时间_今天}
+    sleep    1
+	click element    ${保洁记录_责任人}
+    sleep    1
+	click element    ${保洁记录_责任人_数据}
+	sleep    1
+	click element    ${保洁记录_状态}
+    sleep    1
+	click element    ${保洁记录_状态_数据}
+	sleep    1
+	click element    ${保存}
+    sleep    1
+	等待element元素可见    ${新建成功}
+	
+新建保洁检查
+	[Arguments]    ${testBJJC}
+	click element    ${搜索按钮}
+	sleep	1
+    click button    ${新建}
+    等待element元素可见    ${保洁检查_管理区}
+    sleep    1
+    click element    ${保洁检查_管理区}
+    sleep    1
+	click element    ${保洁检查_管理区数据}
+    sleep    1
+	click element    ${保洁检查_保洁区域}
+    sleep    1
+	click element    ${保洁检查_保洁区域数据}
+    sleep    1
+	click element    ${保洁检查_负责人}
+    sleep    1
+	click element    ${保洁检查_负责人_数据}
+    sleep    1
+	click element    ${保洁检查_检查人}
+    sleep    1
+	click element    ${保洁检查_检查人_数据}
+    sleep    1
+	click element    ${保洁检查_检查时间}
+    sleep    1
+	click element    ${保洁检查_检查时间_今天}
+	sleep    1
+	Input Text    ${保洁检查_检查情况}    ${testBJJC}
+    sleep    2
+	click element    ${保洁检查_检查结果}
+	等待element元素可见    ${保洁检查_检查结果_数据}
+    sleep    1
+	click element    ${保洁检查_检查结果_数据}
+    sleep    1
+	Input Text    ${保洁检查_备注}    ${testBJJC}
+    sleep    2
+	click element    ${保存}
+    sleep    1
+	等待element元素可见    ${新建成功}	
+	
+新建保洁工具
+	[Arguments]    ${testBJJG}
+	click element    ${搜索按钮}
+	sleep	1
+    click button    ${新建}
+    等待element元素可见    ${保洁工具管理_管理区}
+    sleep    1
+    click element    ${保洁工具管理_管理区}
+    sleep    1
+	click element    ${保洁工具管理_管理区数据}
+    sleep    1
+	Input Text    ${保洁工具管理_工具名称}    ${testBJJG}
+    sleep    2
+	click element    ${保洁工具管理_项目类型}
+    sleep    1
+	click element    ${保洁工具管理_项目类型数据}
+    sleep    1
+	click element    ${保洁工具管理_入库时间}
+    sleep    1
+	click element    ${保洁工具管理_入库时间_今天}
+    sleep    1
+	Input Text    ${保洁工具管理_工具说明}    ${testBJJG}
+    sleep    2
+	Input Text    ${保洁工具管理_总数量}    10
+    sleep    2
+	click element    ${保存}
+    sleep    1
+	等待element元素可见    ${添加保洁工具成功}
+
+领用工具
+	click element    ${搜索按钮}
+	sleep	1
+    等待element元素可见    ${保洁工具_领用}
+    sleep    1
+    click element    ${保洁工具_领用}
+	sleep    1
+	click element    ${保洁工具管理_领用人}
+    sleep    1
+	click element    ${保洁工具管理_领用人数据}
+    sleep    1
+	Input Text    ${保洁工具管理_领用数量}    1
+    sleep    2
+    等待element元素可见    ${保存}
+    sleep    1
+    click button    ${保存}
+    等待element元素可见    ${登记领用成功}
+	sleep    1
+	
+归还工具
+	click element    ${搜索按钮}
+	sleep	1
+    等待element元素可见    ${保洁工具_归还}
+    sleep    1
+    click element    ${保洁工具_归还}
+	sleep    1
+	click element    ${保洁工具管理_领用人}
+    sleep    1
+	click element    ${保洁工具管理_领用人数据}
+    sleep    1
+	Input Text    ${保洁工具管理_领用数量}    1
+    sleep    2
+    等待element元素可见    ${保存}
+    sleep    1
+    click button    ${保存}
+    等待element元素可见    ${归还登记成功}
+	sleep    1
+	
+编辑方法
+	click element    ${搜索按钮}
+	sleep	1
+    等待element元素可见    ${编辑}
+    sleep    1
+    click element    ${编辑}
+    等待element元素可见    ${保存}
+    sleep    1
+    click button    ${保存}
+    等待element元素可见    ${编辑成功}
+	sleep    1
+	
+查看方法
+	click element    ${搜索按钮}
+	sleep	1
+    等待element元素可见    ${查看}
+    sleep    1
+    click element    ${查看}
+    等待element元素可见    ${保存}
+    sleep    1
+    click button    ${保存}
+    等待element元素可见    ${保洁区域_列表_区域名称}
+	sleep    1
+	
+删除方法
+	[Arguments]    ${testBJQY}
+	搜索方法	${testBJQY}
+    等待element元素可见    ${删除}
+    sleep    1
+    click element    ${删除}
+    等待element元素可见    ${确认删除}
+    sleep    1
+    click element    ${确认删除}
+	sleep    1
+	等待element元素可见    ${删除成功}
+	sleep    1
+
+搜索方法
+    [Arguments]    ${testBJQY}
+	等待element元素可见    ${搜索框}
+    sleep    1
+    Input Text    ${搜索框}    ${testBJQY}
+    sleep    1
+    Click Element    ${搜索按钮}
+    sleep    2
+	
+高级搜索保洁区域
+	等待element元素可见    ${高级展开}
+	click element    ${高级展开}
+	sleep    1
+	click button    ${高级搜索}
+	sleep    1
+    Click Element    ${高级收起}
+    sleep    2
+	等待element元素可见    ${列表第一个复选框}
+	
+保洁工具编辑方法
+	click element    ${搜索按钮}
+	sleep	1
+    等待element元素可见    ${保洁工具_编辑}
+    sleep    1
+    click element    ${保洁工具_编辑}
+    等待element元素可见    ${保洁工具_返回}
+    sleep    1
+    click button    ${保洁工具_返回}
+    等待element元素可见    ${批量删除}
+	sleep    1
+
+保洁工具查看方法
+	click element    ${搜索按钮}
+	sleep	1
+    等待element元素可见    ${保洁工具_查看}
+    sleep    1
+    click element    ${保洁工具_查看}
+    等待element元素可见    ${保洁工具_查看页面关闭}
+    sleep    1
+    click element    ${保洁工具_查看页面关闭}
+    等待element元素可见    ${批量删除}
+	sleep    1
+
+保洁工具删除方法
+	[Arguments]    ${testBJJG}
+	搜索方法	${testBJJG}
+    等待element元素可见    ${保洁工具_删除}
+    sleep    1
+    click element    ${保洁工具_删除}
+    等待element元素可见    ${确认删除}
+    sleep    1
+    click button    ${确认删除}
+    等待element元素可见    ${删除成功}
+	sleep    1
+	

@@ -1,0 +1,72 @@
+*** Settings ***
+Variables         ../../../../config/elements/OA系统/OAXpath.py
+Library           Selenium2Library
+Resource          ../../../通用方法.robot
+
+*** Keywords ***
+新建待办事项
+    ${db1}    Evaluate    random.randint(1000, 9999)    random
+    ${待办事项主题}    Catenate    ${db1}    待办UITE
+    等待element元素可见    ${新建待办事项按钮}
+    Click Button    ${新建待办事项按钮}
+    sleep    2
+    等待element元素可见    ${待办事项主题输入框}
+    input text    ${待办事项主题输入框}    ${待办事项主题}
+    input text    ${待办事项内容编辑器}    ${待办事项主题}    内容
+    Click Element    ${结束时间}
+    等待element元素可见    ${此刻按钮}
+    sleep    1
+    Click Element    ${此刻按钮}
+    sleep    1
+    Click Element    ${结束时间}
+    等待element元素可见    ${选择日期按钮}
+    sleep    1
+    Click Element    ${选择日期按钮}
+    等待element元素可见    ${选择时间确定按钮}
+    sleep    1
+    Click Element    ${选择时间确定按钮}
+    sleep    1
+    Click Element    ${指派人下拉框}
+    等待element元素可见    ${指派人选择admin}
+    sleep    2
+    Click Element    ${指派人选择admin}
+    sleep    2
+    Click Button    ${待办事项确定按钮}
+    sleep    1
+
+查看待办事项
+    等待element元素可见    ${查看待办事项}
+    sleep    2
+    Click Element    ${查看待办事项}
+    等待element元素可见    ${取消查看}
+    sleep    2
+    Click Button    ${取消查看}
+    sleep    2
+    Click Element    ${查看待办事项}
+    sleep    2
+    Click Button    ${确定查看}
+
+完成待办事项
+    sleep    3
+    等待element元素可见    ${完成待办事项}
+    Click Element    ${完成待办事项}
+    sleep    3
+    二次确认
+
+删除待办事项
+    sleep    3
+    等待element元素可见    ${删除待办事项}
+    sleep    3
+    Click Element    ${删除待办事项}
+    sleep    3
+    二次确认
+
+编辑待办事项
+    等待element元素可见    ${编辑待办事项}
+    sleep    2
+    Click Element    ${编辑待办事项}
+    等待element元素可见    ${待办事项内容编辑器}
+    sleep    2
+    input text    ${待办事项内容编辑器}    UI编辑
+    sleep    2
+    Click Button    ${待办事项确定按钮}

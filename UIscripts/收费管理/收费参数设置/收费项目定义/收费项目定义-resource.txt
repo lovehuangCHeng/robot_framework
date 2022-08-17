@@ -1,0 +1,104 @@
+*** Settings ***
+Variables         ../../../../config/elements/收费管理/收费Xpath.py
+Library           Selenium2Library
+Resource          ../../../通用方法.robot
+
+*** Keywords ***
+新建营业性收费项目
+    ${SFXM}    Evaluate    random.randint(0, 9999)    random
+    ${收费项目名称}    Catenate    SEPARATOR=    ${SFXM}    营业项目UITE
+    等待element元素可见    ${项目大类营业类}
+    sleep    2
+    Click Element    ${项目大类营业类}
+    sleep    1
+    Click Button    ${新建收费项目按钮}
+    等待element元素可见    ${收费项目名称输入框}
+    sleep    1
+    Input Text    ${收费项目名称输入框}    ${收费项目名称}
+    sleep    1
+    等待element元素可见    ${收费项目房间状态下拉框}
+    Click Element    ${收费项目房间状态下拉框}
+    等待element元素可见    ${收费后状态选择交房}
+    sleep    1
+    Click Element    ${收费后状态选择交房}
+    sleep    1
+    Click Button    ${收费项目保存按钮}
+    sleep    1
+
+编辑收费项目
+    等待element元素可见    ${收费标准新建按钮}
+    sleep    2
+    Click Element    ${编辑收费项目}
+    等待element元素可见    ${收费项目备注文本框}
+    sleep    2
+    input text    ${收费项目备注文本框}    beizhuuite
+    Click Button    ${收费项目保存按钮}
+
+删除收费项目
+    等待button元素可见    ${删除收费项目}
+    Click Element    ${删除收费项目}
+    sleep    1
+    二次确认
+
+新建保证金、代收费收费项目
+    ${SFXM1}    Evaluate    random.randint(0, 9999)    random
+    ${收费项目名称1}    Catenate    SEPARATOR=    ${SFXM1}    营业项目UITE
+    等待element元素可见    ${项目大类保证类}
+    sleep    2
+    Click Element    ${项目大类保证类}
+    等待element元素可见    ${新建收费项目按钮}
+    sleep    1
+    Click Button    ${新建收费项目按钮}
+    等待element元素可见    ${收费项目名称输入框}
+    sleep    1
+    Input Text    ${收费项目名称输入框}    ${收费项目名称1}
+    等待element元素可见    ${收费项目房间状态下拉框}
+    sleep    1
+    Click Element    ${收费项目房间状态下拉框}
+    sleep    1
+    等待element元素可见    ${收费后状态选择交房}
+    Click Element    ${收费后状态选择交房}
+    sleep    1
+    Click Button    ${收费项目保存按钮}
+    sleep    1
+
+新建预存费收费项目
+    ${SFXM2}    Evaluate    random.randint(0, 9999)    random
+    ${收费项目名称2}    Catenate    SEPARATOR=    ${SFXM2}    营业项目UITE
+    等待element元素可见    ${项目大类预存款}
+    sleep    2
+    Click Element    ${项目大类预存款}
+    等待element元素可见    ${新建收费项目按钮}
+    sleep    2
+    Click Button    ${新建收费项目按钮}
+    等待element元素可见    ${收费项目名称输入框}
+    sleep    2
+    Input Text    ${收费项目名称输入框}    ${收费项目名称2}
+    sleep    3
+    Click Element    ${预存费充值限制复选框}
+    等待element元素可见    ${收费项目选择下拉框}
+    sleep    2
+    Click Element    ${收费项目选择下拉框}
+    等待element元素可见    ${下拉框选择收费标准}
+    sleep    2
+    Click Element    ${下拉框选择收费标准}
+    等待element元素可见    ${预存款充值限制金额输入框}
+    sleep    2
+    input text    ${预存款充值限制金额输入框}    500
+    等待element元素可见    ${最多充值XX元}
+    sleep    2
+    input text    ${最多充值XX元}    500
+    sleep    1
+    Click Element    ${收费项目多选框}
+    等待element元素可见    ${下拉框多选收费标准}
+    sleep    2
+    Click Element    ${下拉框多选收费标准}
+    sleep    1
+    Click Button    ${收费项目保存按钮}
+    sleep    1
+
+搜索收费项目
+    等待element元素可见    ${收费项目搜索}
+    sleep    2
+    input text    ${收费项目搜索}    UITE
+    搜索框内置搜索按钮

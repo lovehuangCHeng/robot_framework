@@ -1,0 +1,55 @@
+*** Settings ***
+Variables         ../../../../config/elements/收费管理/零头Xpath.py
+Library           Selenium2Library    timeout=20
+Resource          ../../../通用方法.robot
+Library           BuiltIn
+
+*** Keywords ***
+查询零头账户
+    input text    ${业主姓名}    ${AcCname}
+    sleep    3
+    click element    ${开始日期}
+    sleep    2
+    input text    ${开始日期输入}    2020/01/01
+    sleep    2
+    click element    ${结束日期}
+    sleep    2
+    input text    ${结束日期输入}    2020/12/31
+    sleep    2
+    click button    ${搜索账户}
+    等待element元素可见    ${概览数据存在断言}
+    sleep    1
+    click element    ${展开明细按钮}
+    sleep    2
+    click button    ${重置搜索}
+    sleep    2
+
+查询零头账户明细
+    等待element元素可见    ${搜索账户}
+    sleep    1
+    click button    ${搜索账户}
+    sleep    1
+    等待element元素可见    ${展开明细按钮}
+    sleep    1
+    click element    ${展开明细按钮}
+    sleep    2
+
+零头数据导出
+    等待element元素可见    ${导出Excel}
+    sleep    1
+    click button    ${导出Excel}
+    sleep    1
+
+数据查询
+    数据库查询操作    ${GetAccountInt1Cname}
+    ${AcCname}    set variable    ${var[0][0] }
+    Set Suite Variable    ${AcCname}
+    log    ${AcCname}
+
+插入零头数据
+    ${countlingtou}    数据库查询操作    ${CustomerAccoutCount}
+    Run Keyword If    ${countlingtou}[0][0]==0    数据库更新数据    ${CustomerAccoutLingTou}
+
+销毁插入的零头数据
+    ${countlingtou1}    数据库查询操作    ${exidCustomerAccount}
+    BuiltIn.Run Keyword If    ${countlingtou1}[0][0]==1    数据库更新数据    ${deleteCustomerAccount}

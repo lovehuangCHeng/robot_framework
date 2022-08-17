@@ -1,0 +1,333 @@
+*** Settings ***
+Resource          ../../通用方法.robot
+Variables         ../../../config/elements/物业管理/保洁管理.py
+Library           Selenium2Library
+
+*** Keywords ***
+安防事件变量
+    ${testAFSJ}    Time Random    安防事件
+    Set Suite Variable    ${testAFSJ}
+    [Return]    ${testAFSJ}
+	
+登记物品变量
+    ${testDJWP}    Time Random    登记物品
+    Set Suite Variable    ${testDJWP}
+    [Return]    ${testDJWP}
+	
+安防设施变量
+    ${testAFSS}    Time Random    安防设施
+    Set Suite Variable    ${testAFSS}
+    [Return]    ${testAFSS}
+	
+值班方案变量
+    ${testZBFA}    Time Random    值班方案
+    Set Suite Variable    ${testZBFA}
+    [Return]    ${testZBFA}
+	
+保安岗位变量
+    ${testBAGW}    Time Random    保安岗位
+    Set Suite Variable    ${testBAGW}
+    [Return]    ${testBAGW}
+
+新建安防事件
+    [Arguments]    ${testAFSJ}
+    click element    ${新建}
+    等待element元素可见    ${安防事件_管理区}
+    sleep    1
+    click element    ${安防事件_管理区}
+    sleep    1
+    click element    ${安防事件_管理区数据}
+    sleep    1
+    click element    ${安防事件_类型}
+    sleep    1
+    click element    ${安防事件_类型数据}
+    sleep    1
+    Input Text    ${安防事件_事件名称}    ${testAFSJ}
+    sleep    2
+    Input Text    ${安防事件_责任人}    张三
+    sleep    2
+    Input Text    ${安防事件_处理人}    李四
+    sleep    2
+    Input Text    ${安防事件_发生地点}    石桥铺
+	sleep    1
+	click element    ${安防事件_发生时间}
+    sleep    1
+    click element    ${安防事件_发生时间_此刻}
+    sleep    2
+    Input Text    ${安防事件_具体内容}    ${testAFSJ}
+    sleep    1
+    click element    ${保存}
+    sleep    1
+    等待element元素可见    ${新建成功}
+
+新建来人来访
+    click element    ${新建}
+    等待element元素可见    ${来人来访_管理区}
+    sleep    1
+    click element    ${来人来访_管理区}
+    sleep    1
+    click element    ${来人来访_管理区数据}
+    sleep    1
+    Input Text    ${来访人姓名}    张三
+    sleep    2
+    Input Text    ${证件号码}    500234188912121002
+    sleep    2
+    Input Text    ${联系电话}    18716271254
+    sleep    2
+    Input Text    ${被访人}    李四
+    sleep    2
+    click element    ${来访时间}    
+    sleep    1
+    click element    ${来访时间_此刻}
+    sleep    1
+	click element    ${保存}
+    sleep    1
+    等待element元素可见    ${新建成功}
+
+新建物品出入登记
+	[Arguments]    ${testDJWP}
+    click element    ${新建}
+    等待element元素可见    ${出入登记_管理区}
+    sleep    1
+    click element    ${出入登记_管理区}
+    sleep    1
+    click element    ${出入登记_管理区数据}
+    sleep    1
+    Input Text    ${出入登记_物品名称}	 ${testDJWP}    
+    sleep    2
+    Input Text    ${出入登记_物品数量}    10
+    sleep    2
+    Input Text    ${出入登记_物品携带人}    张三
+    sleep    2
+    Input Text    ${出入登记_物品证件号码}    30025105
+    sleep    2
+    click element    ${出入登记_物品值班人员}
+    sleep    1
+    click element    ${出入登记_物品值班人员_值}
+    sleep    1
+	click element    ${保存}
+    sleep    1
+    等待element元素可见    ${新建成功}
+	
+新建安防设施管理
+	[Arguments]    ${testAFSS}
+    click element    ${新建}
+    等待element元素可见    ${安防设施管理_管理区}
+    sleep    1
+    click element    ${安防设施管理_管理区}
+    sleep    1
+    click element    ${安防设施管理_管理区数据}
+    sleep    1
+    Input Text    ${安防设施管理_名称}	 ${testAFSS}    
+    sleep    2
+    Input Text    ${安防设施管理_地点}    ${testAFSS} 
+    sleep    2
+    Input Text    ${安防设施管理_规格型号}    V200
+    sleep    2
+    Input Text    ${安防设施管理_数量}    30
+    sleep    2
+    click element    ${安防设施管理_类型}
+    sleep    1
+    click element    ${安防设施管理_类型_值}
+    sleep    1
+	click element    ${安防设施管理_责任人}
+    sleep    1
+    click element    ${安防设施管理_责任人_值}
+    sleep    1
+	click element    ${保存}
+    sleep    1
+    等待element元素可见    ${新建成功}
+	
+新建值班方案
+	[Arguments]    ${testZBFA}
+    click element    ${新建}
+    等待element元素可见    ${值班方案_管理区}
+    sleep    1
+    click element    ${值班方案_管理区}
+    sleep    1
+    click element    ${值班方案_管理区数据}
+    sleep    1
+    Input Text    ${值班方案_方案名称}	 ${testZBFA}
+    sleep    2
+    Input Text    ${值班方案_方案编号}    v2002105
+    sleep    2
+    Input Text    ${值班方案_每月休息总天数}    5
+    sleep    2
+    Input Text    ${值班方案_每月工作总天数}    25
+    sleep    2
+    click element    ${值班方案_值班开始时间}
+    sleep    1
+    Input Text    ${值班方案_输入时间}	 09:00
+    sleep    1
+	click element    ${值班方案_值班结束时间}
+    sleep    1
+    Input Text    ${值班方案_输入时间}	18:00
+    sleep    1
+	click element    ${保存}
+    sleep    1
+    等待element元素可见    ${新建成功}
+	
+新建保安岗位
+	[Arguments]    ${tesBAGW}
+    click element    ${新建}
+    等待element元素可见    ${保安岗位管理_管理区}
+    sleep    1
+    click element    ${保安岗位管理_管理区}
+    sleep    1
+    click element    ${保安岗位管理_管理区数据}
+    sleep    1
+    Input Text    ${保安岗位管理_岗位人数}	 10	
+    sleep    2
+    Input Text    ${保安岗位管理_岗位代码}    v2002105
+    sleep    2
+    Input Text    ${保安岗位管理_岗位名称}    ${tesBAGW}
+    sleep    2
+    Input Text    ${保安岗位管理_岗位地址}    ${tesBAGW}
+    sleep    2
+    click element    ${保安岗位管理_值班开始时间}
+    sleep    1
+    click element    ${保安岗位管理_值班开始时间_值}
+    sleep    1
+	Input Text    ${保安岗位管理_每月工作总天数}	20
+    sleep    1
+    Input Text    ${保安岗位管理_每月休息总天数}	10
+    sleep    1
+	click element    ${保安岗位管理_保存}
+    sleep    1
+    等待element元素可见    ${添加保安岗成功}
+	
+编辑保安岗位
+	等待element元素可见    ${编辑}
+    sleep    1
+    click element    ${编辑}
+	sleep	1
+	等待element元素可见    ${保安岗位管理_添加}
+	click element	${保安岗位管理_添加}
+	sleep	1
+	click element    ${保安岗位管理_保安姓名}
+	sleep	1
+	click element    ${保安岗位管理_保安姓名_testing}
+	sleep	1
+	click element    ${保安岗位管理_值班方案}
+	sleep	1
+	click element    ${保安岗位管理_值班方案_值}
+	sleep	1
+	click element    ${保存}
+	sleep	1
+	click element    ${保安岗位管理_保存}
+	sleep	1
+	等待element元素可见    ${编辑保安岗成功}
+	
+编辑值班方法
+    等待element元素可见    ${值班编辑}
+    sleep    1
+    click element    ${值班编辑}
+    等待element元素可见    ${保存}
+    sleep    1
+    click button    ${保存}
+    等待element元素可见    ${编辑成功}
+    sleep    1
+
+查看值班方法
+    等待element元素可见    ${值班查看}
+    sleep    1
+    click element    ${值班查看}
+    等待element元素可见    ${保存}
+    sleep    1
+    click button    ${保存}
+    等待element元素可见    ${保洁区域_列表_区域名称}
+    sleep    1
+
+删除值班方法
+    [Arguments]    ${testBJQY}
+    搜索方法    ${testBJQY}
+    等待element元素可见    ${值班删除}
+    sleep    1
+    click element    ${值班删除}
+    等待element元素可见    ${确认删除}
+    sleep    1
+    click element    ${确认删除}
+    sleep    1
+    等待element元素可见    ${删除成功}
+    sleep    1
+	
+编辑方法
+    等待element元素可见    ${编辑}
+    sleep    1
+    click element    ${编辑}
+    等待element元素可见    ${保存}
+    sleep    1
+    click button    ${保存}
+    等待element元素可见    ${编辑成功}
+    sleep    1
+
+查看方法
+    等待element元素可见    ${查看}
+    sleep    1
+    click element    ${查看}
+    等待element元素可见    ${保存}
+    sleep    1
+    click button    ${保存}
+    等待element元素可见    ${保洁区域_列表_区域名称}
+    sleep    1
+	
+查看保安岗位
+	等待element元素可见    ${查看}
+    sleep    1
+    click element    ${查看}
+    等待element元素可见    ${保安岗位管理_查看_关闭}
+    sleep    1
+    click element    ${保安岗位管理_查看_关闭}
+    等待element元素可见    ${保洁区域_列表_区域名称}
+    sleep    1
+
+删除方法
+    [Arguments]    ${testBJQY}
+    搜索方法    ${testBJQY}
+    等待element元素可见    ${删除}
+    sleep    1
+    click element    ${删除}
+    等待element元素可见    ${确认删除}
+    sleep    1
+    click element    ${确认删除}
+    sleep    1
+    等待element元素可见    ${删除成功}
+    sleep    1
+	
+批量删除方法
+	等待element元素可见    ${列表第一个复选框}
+	click element	${全选}
+    等待element元素可见    ${批量删除}
+    sleep    1
+    click element    ${批量删除}
+    等待element元素可见    ${确认删除}
+    sleep    1
+    click element    ${确认删除}
+    sleep    1
+    等待element元素可见    ${删除成功}
+    sleep    1
+
+搜索方法
+    [Arguments]    ${testBJQY}
+    等待element元素可见    ${搜索框}
+    sleep    1
+    Input Text    ${搜索框}    ${testBJQY}
+    sleep    1
+    Click Element    ${搜索按钮}
+    sleep    2
+
+高级搜索方法
+    等待element元素可见    ${高级展开}
+    click element    ${高级展开}
+    sleep    1
+    click button    ${高级搜索}
+    sleep    1
+    Click Element    ${高级收起}
+    sleep    2
+    等待element元素可见    ${列表第一个复选框}
+
+导出方法
+    等待element元素可见    ${导出}
+    click element    ${导出}
+    sleep    1
+    等待element元素可见    ${列表第一个复选框}
